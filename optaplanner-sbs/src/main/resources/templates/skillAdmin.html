@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="mainStyles.css">
+
+    <meta charset="UTF-8">
+    <title>Skills</title>
+</head>
+<body>
+<div id="page-container">
+    <div id="content-wrap">
+
+        <div th:replace="fragments/header :: header"></div>
+        <div th:replace="fragments/adminPageTitle :: adminPageTitle ('Skills Administrative Page')"></div>
+
+        <br><br>
+
+        <div class="container" id="main">
+            <form v-on:submit.prevent="postSkill">
+                <div class="card mb-auto">
+                    <div aria-controls="skillForm" aria-expanded="false" class="card-header" data-target="#skillForm"
+                         data-toggle="collapse" style="cursor: pointer">
+                        <div class="float-left">New/Edit Skill</div>
+                        <div class="float-right">+</div>
+                    </div>
+                    <div class="card card-body collapse" id="skillForm">
+                        <div class="form-group row">
+                            <label for="skillName" class="col-sm-4 col-form-label">Skill Name</label>
+                            <input id="skillID" type="hidden" v-model="skill_id">
+                            <input class="form-control col-sm-8" id="skillName" placeholder="Skill Name" type="text"
+                                   v-model="skill_name"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="associatedDepartment" class="col col-sm-4">Associated Department</label>
+                            <select class="form-control col-sm-8" id="associatedDepartment"
+                                    placeholder="Associated Department" v-model="associated_department">
+                                <option disabled value="">Please select a Department</option>
+                                <option :selected="department.departmentName === associated_department"
+                                        v-bind:value="department.departmentName" v-for="department in departments">
+                                    {{ department.departmentName }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col col-sm-4"></div>
+                            <input class="btn btn-primary col col-sm-8" type="submit" value="Save">
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <br><br>
+
+            <table class="table table-striped table-bordered">
+                <thead class="thead-admin">
+                <tr>
+                    <th>Skill ID</th>
+                    <th>Skill Name</th>
+                    <th>Associated Department</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="skill in skills">
+                    <td>{{ skill.skillID }}</td>
+                    <td>{{ skill.skillName }}</td>
+                    <td>{{ skill.associatedDepartment }}</td>
+                    <td>
+                        <button class="btn btn-primary" v-on:click="editSkill(skill)">Edit</button>
+                        <button class="btn btn-danger" v-on:click="deleteSkill(skill)">Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
+
+<script>
+    var app = new Vue({
+        el: '#main',
+        data() {
+            return {
+                skills: null,
+                departments: null,
+                skill_id: '',
+                skill_name: ''
+            }
+        },
+        mounted() {
+            this.getSkills();
+            this.getDepartments();
+        },
+        methods: {
+            getSkills: function () {
+                axios
+                    .get("/api/skills")
+                    .then(response => (this.skills = response.data))
+            },
+            getDepartments: function () {
+                axios
+                    .get("/api/departments")
+                    .then(response => (this.departments = response.data))
+            },
+            postSkill: function (event) {
+                // Create
+                if (this.skill_id == '' || this.skill_id == null) {
+                    axios
+                        .post("/api/skills", {
+                            "skillName": this.skill_name,
+                            "associatedDepartment": this.associated_department
+                        })
+                        .then(savedEmployee => {
+                            this.employees.push(savedEmployee.data);
+                            this.skill_name = '';
+                            this.skill_id = '';
+                            this.associated_department = null;
+                        })
+                } else { // Update
+                    axios
+                        .post("/api/skills", {
+                            "skillID": this.skill_id,
+                            "skillName": this.skill_name,
+                            "associatedDepartment": this.associated_department
+                        })
+                        .then(savedSkill => {
+                            this.getSkills();
+                            this.skill_name = '';
+                            this.skill_id = '';
+                            this.associated_department = '';
+                        })
+                }
+            },
+            editSkill: function (skill) {
+                this.skill_id = skill.skillID;
+                this.skill_name = skill.skillName;
+                this.associated_department = skill.associatedDepartment;
+                document.getElementById('skillForm')
+                    .setAttribute("class", document.getElementById('skillForm').getAttribute("class") + " show");
+            },
+            deleteSkill: async function (skill) {
+                await axios
+                    .delete("/api/skills/" + skills.skillID);
+                this.getSkills();
+            }
+        },
+    })
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

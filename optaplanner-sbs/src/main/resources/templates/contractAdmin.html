@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="mainStyles.css">
+
+    <meta charset="UTF-8">
+    <title>Contracts</title>
+</head>
+<body>
+<div id="page-container">
+    <div id="content-wrap">
+
+        <div th:replace="fragments/header :: header"></div>
+        <div th:replace="fragments/adminPageTitle :: adminPageTitle ('Contracts Administrative Page')"></div>
+
+
+        <br><br>
+
+        <div class="container" id="main">
+
+            <form v-on:submit.prevent="postContract">
+                <div class="card mb-auto">
+                    <div aria-controls="contractForm" aria-expanded="false" class="card-header"
+                         data-target="#contractForm"
+                         data-toggle="collapse" style="cursor: pointer">
+                        <div class="float-left">New/Edit Contract</div>
+                        <div class="float-right">+</div>
+                    </div>
+                    <div class="card card-body collapse" id="contractForm">
+                        <div class="form-group row">
+                            <label for="contractName" class="col-sm-4 col-form-label">Contract Name</label>
+                            <input id="contractID" type="hidden" v-model="contract_id">
+                            <input class="form-control col-sm-8" id="contractName" placeholder="Contract Name"
+                                   type="text"
+                                   v-model="contract_name"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="maxMinutesPerDay" class="col-sm-4 col-form-label">Max Minutes Per Day</label>
+                            <input class="form-control col-sm-8" id="maxMinutesPerDay" placeholder="Max Minutes Per Day"
+                                   type="text"
+                                   v-model="max_minutesPerDay"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="maxMinutesPerWeek" class="col-sm-4 col-form-label">Max Minutes Per Week</label>
+                            <input class="form-control col-sm-8" id="maxMinutesPerWeek"
+                                   placeholder="Max Minutes Per Week" type="text"
+                                   v-model="max_minutesPerWeek"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="maxMinutesPerMonth" class="col-sm-4 col-form-label">Max Minutes Per
+                                Month</label>
+                            <input class="form-control col-sm-8" id="maxMinutesPerMonth"
+                                   placeholder="Max Minutes Per Month" type="text"
+                                   v-model="max_minutesPerMonth"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="maxMinutesPerYear" class="col-sm-4 col-form-label">Max Minutes Per Year</label>
+                            <input class="form-control col-sm-8" id="maxMinutesPerYear"
+                                   placeholder="Max Minutes Per Year" type="text"
+                                   v-model="max_minutesPerYear"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="associatedDepartment" class="col col-sm-4">Associated Department</label>
+                            <select class="form-control col-sm-8" id="associatedDepartment"
+                                    placeholder="Associated Department" v-model="associated_department">
+                                <option disabled value="">Please select a Department</option>
+                                <option :selected="department.departmentName === associated_department"
+                                        v-bind:value="department.departmentName" v-for="department in departments">
+                                    {{ department.departmentName }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col col-sm-4"></div>
+                            <input class="btn btn-primary col col-sm-8" type="submit" value="Save">
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <br><br>
+
+            <table class="table table-striped table-bordered">
+                <thead class="thead-admin">
+                <tr>
+                    <th>Contract ID</th>
+                    <th>Contract Name</th>
+                    <th>Max Minutes Per Day</th>
+                    <th>Max Minutes Per Week</th>
+                    <th>Max Minutes Per Month</th>
+                    <th>Max Minutes Per Year</th>
+                    <th>Associated Department</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="contract in contracts">
+                    <td>{{ contract.contractID }}</td>
+                    <td>{{ contract.contractName }}</td>
+                    <td>{{ contract.maxMinutesPerDay }}</td>
+                    <td>{{ contract.maxMinutesPerWeek }}</td>
+                    <td>{{ contract.maxMinutesPerMonth }}</td>
+                    <td>{{ contract.maxMinutesPerYear }}</td>
+                    <td>{{ contract.associatedDepartment }}</td>
+                    <td>
+                        <button id="editContract" class="btn btn-primary" v-on:click="editContract(contract)">Edit
+                        </button>
+                        <button id="deleteContract" class="btn btn-danger" v-on:click="deleteContract(contract)">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
+
+<script>
+    var app = new Vue({
+        el: '#main',
+        data() {
+            return {
+                contracts: null,
+                departments: null,
+                contract_id: null,
+                contract_name: null,
+                max_minutesPerDay: null,
+                max_minutesPerWeek: null,
+                max_minutesPerMonth: null,
+                max_minutesPerYear: null,
+                associated_department: null
+            }
+        },
+        mounted() {
+            this.getContracts();
+            this.getDepartments();
+        },
+        methods: {
+            getContracts: function () {
+                axios
+                    .get("/api/contracts")
+                    .then(response => (this.contracts = response.data))
+            },
+            getDepartments: function () {
+                axios
+                    .get("/api/departments")
+                    .then(response => (this.departments = response.data))
+            },
+            postContract: function (event) {
+                // Create
+                if (this.contract_id == '' || this.contract_id == null) {
+                    axios
+                        .post("/api/contracts", {
+                            "contractName": this.contract_name,
+                            "maxMinutesPerDay": this.max_minutesPerDay,
+                            "maxMinutesPerWeek": this.max_minutesPerWeek,
+                            "maxMinutesPerMonth": this.max_minutesPerMonth,
+                            "maxMinutesPerYear": this.max_minutesPerYear,
+                            "associatedDepartment": this.associated_department
+                        })
+                        .then(savedContract => {
+                            this.contracts.push(savedContract.data);
+                            this.contract_id = '';
+                            this.contract_name = '';
+                            this.max_minutesPerDay = '';
+                            this.max_minutesPerWeek = '';
+                            this.max_minutesPerMonth = '';
+                            this.max_minutesPerYear = '';
+                            this.associated_department = null;
+                        })
+                } else { // Update
+                    axios
+                        .post("/api/contracts", {
+                            "contractID": this.contract_id,
+                            "contractName": this.contract_name,
+                            "maxMinutesPerDay": this.max_minutesPerDay,
+                            "maxMinutesPerWeek": this.max_minutesPerWeek,
+                            "maxMinutesPerMonth": this.max_minutesPerMonth,
+                            "maxMinutesPerYear": this.max_minutesPerYear,
+                            "associatedDepartment": this.associated_department
+                        })
+                        .then(savedContract => {
+                            this.getContracts();
+                            this.contract_id = '';
+                            this.contract_name = '';
+                            this.max_minutesPerDay = '';
+                            this.max_minutesPerWeek = '';
+                            this.max_minutesPerMonth = '';
+                            this.max_minutesPerYear = '';
+                            this.associated_department = '';
+                        })
+                }
+            },
+            editContract: function (contract) {
+                this.contract_id = contract.contractID;
+                this.contract_name = contract.contractName;
+                this.max_minutesPerDay = contract.maxMinutesPerDay;
+                this.max_minutesPerWeek = contract.maxMinutesPerWeek;
+                this.max_minutesPerMonth = contract.maxMinutesPerMonth;
+                this.max_minutesPerYear = contract.max_minutesPerYear;
+                this.associated_department = contract.associatedDepartment;
+                document.getElementById('contractForm')
+                    .setAttribute("class", document.getElementById('contractForm').getAttribute("class") + " show");
+            },
+            deleteEmployee: async function (employee) {
+                await axios
+                    .delete("/api/contracts/" + contract.contractID);
+                this.getContracts();
+            },
+        },
+    })
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

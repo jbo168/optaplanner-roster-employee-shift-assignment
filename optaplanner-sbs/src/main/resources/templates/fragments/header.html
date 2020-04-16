@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="mainStyles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Francois+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Francois+One&family=Taviraj:wght@800&display=swap" rel="stylesheet">
+
+
+    <meta charset="UTF-8">
+    <title>Restaurants</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="header">
+    <a class="navbar-brand nav-font" href="/"><img src="https://i.ya-webdesign.com/images/schedule-icon-png-6.png" width="10%"
+                                          id="logo">Hospitality Scheduler</a>
+    <!--    <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"-->
+    <!--            class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">-->
+    <!--        <span class="navbar-toggler-icon"></span>-->
+    <!--    </button>-->
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                   aria-expanded="false">Manager Admin</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/employeeAdmin">Employees</a>
+                    <a class="dropdown-item" href="/departmentAdmin">Departments</a>
+                    <a class="dropdown-item" href="/skillAdmin">Skills</a>
+                    <a class="dropdown-item" href="/shiftAdmin">Shifts</a>
+                    <a class="dropdown-item" href="/contractAdmin">Contracts</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/shiftSwapApproval">Shift Swaps Approval</a>
+                    <a class="dropdown-item" href="/shiftChangeApproval">Shift Changes Approval</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/shiftSwap">Shift Swap</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/shiftChange">Shift Change</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/holidayRequest">Holiday Request</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

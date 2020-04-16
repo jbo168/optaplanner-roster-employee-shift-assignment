@@ -1,0 +1,54 @@
+body{
+}
+
+
+.nav-item li.active {
+}
+
+.thead-admin {
+    /*background-color: #7575a3;*/
+}
+
+.nav-font{
+     margin-right: -20.75em;
+     font-family: 'Taviraj', sans-serif !important;
+}
+
+#page-container {
+     position: relative;
+     min-height: 100vh;
+}
+
+#content-wrap {
+     padding-bottom: 5rem;    /* Footer height */
+}
+
+
+.footer {
+     position: absolute;
+     bottom: 0;
+     width: 100%;
+     /* Set the fixed height of the footer here */
+     /*height: 2.5rem;*/
+     /*line-height: 60px; !* Vertically center the text there *!*/
+     /*background-color: #343a40 !important;*/
+}
+
+.footer-image {
+     margin-left: 3rem !important;
+     width: 45% !important;
+}
+
+
+.footer-row {
+     padding-top: 2rem !important;
+}
+
+.page-footer {
+     color: rgba(255,255,255,.5) !important;
+     background-color: #343a40 !important;
+}
+
+
+
+
