@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="cloud_balance_db@localhost" uuid="c843f072-149a-4266-8db1-777a4d2ab4cd">
+    <data-source source="LOCAL" name="scheduletestdb2@localhost" uuid="ba4fa838-e6bc-4df6-9943-1a06d8cd9633">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/cloud_balance_db</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/scheduletestdb2</jdbc-url>
     </data-source>
   </component>
 </project>

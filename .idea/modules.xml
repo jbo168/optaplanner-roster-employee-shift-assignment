@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/optaplanner-sbs/optaplanner-sbs.iml" filepath="$PROJECT_DIR$/optaplanner-sbs/optaplanner-sbs.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/optaplanner-sbs-cloud-balancing-master.iml" filepath="$PROJECT_DIR$/.idea/optaplanner-sbs-cloud-balancing-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/optaplanner-sbs-cloud-balancing-externalDB.iml" filepath="$PROJECT_DIR$/.idea/optaplanner-sbs-cloud-balancing-externalDB.iml" />
     </modules>
   </component>
 </project>
