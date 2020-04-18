@@ -28,7 +28,7 @@ public class EmployeeService {
     }
 
     @Transactional
-    public void deleteEmployee(Long id) {
+    public void deleteEmployee(int id) {
         employeeRepository.deleteById(id);
     }
 }

@@ -23,6 +23,10 @@ body{
      padding-bottom: 5rem;    /* Footer height */
 }
 
+.generate-schedule-btn {
+     padding-top: 2rem !important;
+}
+
 
 .footer {
      position: absolute;
