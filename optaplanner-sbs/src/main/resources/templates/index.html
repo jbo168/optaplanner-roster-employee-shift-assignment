@@ -20,6 +20,7 @@
             </div>
             <div class="col-md-2 generate-schedule-btn">
                 <button class="btn btn-primary" v-on:click="postToSolver()">Generate Roster</button>
+<!--                <p>The button above has been clicked {{ counter }} times.</p>-->
             </div>
         </div>
 
@@ -53,22 +54,20 @@
 
 <script>
     var app = new Vue({
-        el: '#main',
+        el: '#page-container',
         data() {
             return {
                 employees: null,
                 shifts: null,
                 postScheduleBody: '',
                 solvedScheduleBody: '',
+                counter: 0,
                 daysOfWeek: null
             }
         },
         mounted() {
             this.getEmployees();
             this.getDaysOfWeek();
-            this.postToSolver();
-            // this.getAllShifts();
-            // this.generateScheduleSolverBody();
         },
         methods: {
             getEmployees: function () {
@@ -179,72 +178,87 @@
                         {
                             "eid":0,
                             "name":"john",
-                            "skillLevel": 10
+                            "skillLevel": 10,
+                            "employeeType": "FULL_TIME"
                         },
                         {
                             "eid":1,
                             "name":"elaine",
-                            "skillLevel": 2
+                            "skillLevel": 2,
+                            "employeeType": "FULL_TIME"
+
                         },
                         {
                             "eid":2,
                             "name":"kieran",
-                            "skillLevel": 11
+                            "skillLevel": 11,
+                            "employeeType": "FULL_TIME"
                         },
                         {
                             "eid":3,
                             "name":"maeve",
-                            "skillLevel": 10
+                            "skillLevel": 10,
+                            "employeeType": "FULL_TIME"
                         },
                         {
                             "eid":4,
                             "name":"steve",
-                            "skillLevel": 9
+                            "skillLevel": 9,
+                            "employeeType": "FULL_TIME"
                         },
                         {
                             "eid":5,
                             "name":"aisling",
-                            "skillLevel": 9
+                            "skillLevel": 9,
+                            "employeeType": "FULL_TIME"
                         },
                         {
                             "eid":6,
                             "name":"james",
-                            "skillLevel": 15
+                            "skillLevel": 15,
+                            "employeeType": "FULL_TIME"
                         },
                         {
                             "eid":7,
                             "name":"aine",
-                            "skillLevel": 12
+                            "skillLevel": 12,
+                            "employeeType": "FULL_TIME"
                         },
                         {
                             "eid":8,
                             "name":"saoirse",
-                            "skillLevel": 11
+                            "skillLevel": 11,
+                            "employeeType": "FULL_TIME"
                         },
                         {
                             "eid":9,
                             "name":"mark",
-                            "skillLevel": 16
+                            "skillLevel": 16,
+                            "employeeType": "PART_TIME"
                         },
                         {
                             "eid":10,
                             "name":"luke",
-                            "skillLevel": 15
+                            "skillLevel": 15,
+                            "employeeType": "PART_TIME"
                         },
                         {
                             "eid":11,
                             "name":"jason",
-                            "skillLevel": 10
+                            "skillLevel": 10,
+                            "employeeType": "FULL_TIME"
                         },
                         {
                             "eid":12,
                             "name":"tommy",
-                            "skillLevel": 15
+                            "skillLevel": 15,
+                            "employeeType": "FULL_TIME"
                         },
                         {
                             "eid":13,
                             "name":"amy",
-                            "skillLevel": 11
+                            "skillLevel": 11,
+                            "employeeType": "FULL_TIME"
                         }
                     ]
                 })

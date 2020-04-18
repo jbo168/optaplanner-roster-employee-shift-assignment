@@ -1,5 +1,7 @@
 package com.schedule.demo.entity;
 
+import com.schedule.demo.utils.EmployeeType;
+
 import javax.persistence.*;
 
 /**
@@ -13,9 +15,15 @@ public class Employee {
     @Column(name = "eid")
     private int eid;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "skillLevel")
     private int skillLevel;
+
+    @Column(name = "employeeType")
+    @Enumerated(EnumType.STRING)
+    private EmployeeType employeeType;
 
     public Employee(){
 
@@ -46,5 +54,11 @@ public class Employee {
         this.skillLevel = skillLevel;
     }
 
+    public EmployeeType getEmployeeType() {
+        return employeeType;
+    }
 
+    public void setEmployeeType(EmployeeType employeeType) {
+        this.employeeType = employeeType;
+    }
 }
