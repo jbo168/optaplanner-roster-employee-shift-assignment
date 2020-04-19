@@ -28,4 +28,6 @@ public class ConstraintProvider implements org.optaplanner.core.api.score.stream
                 HardSoftScore.ONE_HARD,
                 (employee, requiredSkillLevel) -> requiredSkillLevel - employee.getSkillLevel());
     }
+
+
 }

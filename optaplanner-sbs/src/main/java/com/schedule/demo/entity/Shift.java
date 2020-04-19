@@ -24,6 +24,9 @@ public class Shift {
     @Column(name = "endTime")
     private LocalTime endTime;
 
+    @Column(name = "day")
+    private String day;
+
     @Column(name = "requiredSkillLevel")
     private int requiredSkillLevel;
 
@@ -82,5 +85,13 @@ public class Shift {
 
     public void setRequiredSkillLevel(int requiredSkillLevel) {
         this.requiredSkillLevel = requiredSkillLevel;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 }
