@@ -1,0 +1,8 @@
+{
+  "name": "optaplanner-sbs",
+  "version": "1.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "vue-spinner": "^1.0.3"
+  }
+}

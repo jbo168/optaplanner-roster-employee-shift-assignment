@@ -38,7 +38,7 @@
                 </thead>
                 <tbody id="schedule-body">
                 <tr id="schedule-body-row" v-for="employee in employees">
-                    <td>{{ employee.name }}</td>
+                    <td id="schedule-data">{{ employee.name }}</td>
                 </tr>
                 </tbody>
             </table>
@@ -56,6 +56,8 @@
 <script>
     var app = new Vue({
         el: '#page-container',
+        components: {
+        },
         data() {
             return {
                 employees: null,
@@ -291,29 +293,37 @@
                     });
 
             },
-            insertSolvedDataToTable: function() {
+            insertSolvedDataToTable: function (data) {
                 let cell = document.createElement("td");
                 let tbody = document.getElementById('schedule-body');
                 let row = document.getElementById('schedule-body-row');
-                let obj = this.solvedScheduleBody;
+                let tdata = document.getElementById('schedule-data');
+                let schData = this.solvedScheduleBody;
+                let objTestData = schData.shifts[0].startTime;
 
                 /*  these for loops traverse the schedule table
                     adding shifts where employee and day match
                  */
-                for(let e=0; e < this.employees.length; e++) {
-                    for(let d=0; d < this.daysOfWeek.length; d++) {
-                        for(let s=0; s < obj.shifts.length; s++) {
-                            if(obj.shifts[e].day == this.daysOfWeek[d]) {
-                                if(obj.shifts[e].employee.name == this.employees[e]) {
-                                    let cellText = document.createTextNode("text");
+                var cellText;
+                for (let d = 0; d < this.daysOfWeek.length; d++) {
+                    for (let e = 0; e < this.employees.length; e++) {
+                        for (let s = 0; s < schData.shifts.length; s++) {
+                            if (schData.shifts[s].day == this.daysOfWeek[d]) {
+                                if (schData.shifts[s].employee.name == this.employees[e].name) {
+                                    // let data =  "" + obj.shifts.[e].startTime + "-" + obj.shifts.[e].startTime;
+                                    let data = "data";
+                                    cellText = document.createTextNode(data);
                                     cell.appendChild(cellText);
                                     row.appendChild(cell);
-                                }else{
-                                    let cellText = document.createTextNode("");
-                                    cell.appendChild(cellText);
-                                    row.appendChild(cell);
-                                    tbody.appendChild(row);
                                 }
+                                // else{
+                                //     // let cellText = document.createTextNode("no text");
+                                //     // let cellText = document.createTextNode("!" + obj.shifts.[e].startTime + "-" + obj.shifts.[e].startTime);
+                                //     let cellText = document.createTextNode("!wrong");
+                                //     cell.appendChild(cellText);
+                                //     row.appendChild(cell);
+                                //     tbody.appendChild(row);
+                                // }
                             }
                         }
                     }
