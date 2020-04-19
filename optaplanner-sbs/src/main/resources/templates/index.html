@@ -29,7 +29,7 @@
         <br><br>
 
         <div class="container" id="main">
-            <table class="table">
+            <table class="table" id="rosterTable">
                 <thead class="thead-dark">
                 <tr>
                     <th>Employee</th>
@@ -37,9 +37,9 @@
                 </tr>
                 </thead>
                 <tbody id="schedule-body">
-                <tr id="schedule-body-row" v-for="employee in employees">
-                    <td id="schedule-data">{{ employee.name }}</td>
-                </tr>
+<!--                <tr id="schedule-body-row" v-for="employee in employees">-->
+<!--                    <td id="schedule-data">{{ employee.name }}</td>-->
+<!--                </tr>-->
                 </tbody>
             </table>
         </div>
@@ -85,202 +85,201 @@
             },
             postToSolver: function() {
                 axios.post('/api/solve', {
-                    "shifts":[
+                    "shifts": [
                         {
-                            "sid":0,
-                            "startTime":"09:00",
-                            "endTime":"18:00",
+                            "sid": 0,
+                            "startTime": "09:00",
+                            "endTime": "18:00",
                             "day": "Monday",
                             "requiredSkillLevel": 12
                         },
                         {
-                            "sid":1,
-                            "startTime":"12:00",
-                            "endTime":"20:00",
+                            "sid": 1,
+                            "startTime": "12:00",
+                            "endTime": "20:00",
                             "day": "Monday",
                             "requiredSkillLevel": 10
                         },
                         {
-                            "sid":2,
-                            "startTime":"18:00",
-                            "endTime":"00:00",
+                            "sid": 2,
+                            "startTime": "18:00",
+                            "endTime": "00:00",
                             "day": "Monday",
                             "requiredSkillLevel": 10
                         },
                         {
                             "sid": 3,
-                            "startTime":"09:00",
-                            "endTime":"18:00",
+                            "startTime": "09:00",
+                            "endTime": "18:00",
                             "day": "Tuesday",
                             "requiredSkillLevel": 12
                         },
                         {
-                            "sid":4,
-                            "startTime":"12:00",
-                            "endTime":"20:00",
+                            "sid": 4,
+                            "startTime": "12:00",
+                            "endTime": "20:00",
                             "day": "Tuesday",
                             "requiredSkillLevel": 10
                         },
                         {
-                            "sid":5,
-                            "startTime":"18:00",
-                            "endTime":"00:00",
+                            "sid": 5,
+                            "startTime": "18:00",
+                            "endTime": "00:00",
                             "day": "Tuesday",
-                            "requiredSkillLevel":10
+                            "requiredSkillLevel": 10
                         },
                         {
-                            "sid":6,
-                            "startTime":"09:00",
-                            "endTime":"18:00",
+                            "sid": 6,
+                            "startTime": "09:00",
+                            "endTime": "18:00",
                             "day": "Wednesday",
                             "requiredSkillLevel": 12
                         },
                         {
-                            "sid":7,
-                            "startTime":"12:00",
-                            "endTime":"20:00",
+                            "sid": 7,
+                            "startTime": "12:00",
+                            "endTime": "20:00",
                             "day": "Wednesday",
                             "requiredSkillLevel": 10
                         },
                         {
-                            "sid":8,
-                            "startTime":"18:00",
-                            "endTime":"00:00",
+                            "sid": 8,
+                            "startTime": "18:00",
+                            "endTime": "00:00",
                             "day": "Wednesday",
-                            "requiredSkillLevel":10
+                            "requiredSkillLevel": 10
                         },
                         {
-                            "sid":9,
-                            "startTime":"09:00",
-                            "endTime":"18:00",
+                            "sid": 9,
+                            "startTime": "09:00",
+                            "endTime": "18:00",
                             "day": "Thursday",
                             "requiredSkillLevel": 12
                         },
                         {
-                            "sid":10,
-                            "startTime":"12:00",
-                            "endTime":"20:00",
+                            "sid": 10,
+                            "startTime": "12:00",
+                            "endTime": "20:00",
                             "day": "Thursday",
                             "requiredSkillLevel": 10
                         },
                         {
-                            "sid":11,
-                            "startTime":"18:00",
-                            "endTime":"00:00",
+                            "sid": 11,
+                            "startTime": "18:00",
+                            "endTime": "00:00",
                             "day": "Thursday",
-                            "requiredSkillLevel":10
+                            "requiredSkillLevel": 10
                         },
                         {
-                            "sid":12,
-                            "startTime":"09:00",
-                            "endTime":"18:00",
+                            "sid": 12,
+                            "startTime": "09:00",
+                            "endTime": "18:00",
                             "day": "Friday",
                             "requiredSkillLevel": 12
                         },
                         {
-                            "sid":13,
-                            "startTime":"12:00",
-                            "endTime":"20:00",
+                            "sid": 13,
+                            "startTime": "12:00",
+                            "endTime": "20:00",
                             "day": "Friday",
                             "requiredSkillLevel": 10
                         },
                         {
-                            "sid":14,
-                            "startTime":"18:00",
-                            "endTime":"00:00",
+                            "sid": 14,
+                            "startTime": "18:00",
+                            "endTime": "00:00",
                             "day": "Friday",
-                            "requiredSkillLevel":10
+                            "requiredSkillLevel": 10
                         },
                         {
-                            "sid":12,
-                            "startTime":"09:00",
-                            "endTime":"18:00",
+                            "sid": 15,
+                            "startTime": "09:00",
+                            "endTime": "18:00",
                             "day": "Saturday",
                             "requiredSkillLevel": 12
                         },
                         {
-                            "sid":13,
-                            "startTime":"12:00",
-                            "endTime":"20:00",
+                            "sid": 16,
+                            "startTime": "12:00",
+                            "endTime": "20:00",
                             "day": "Saturday",
                             "requiredSkillLevel": 10
                         },
                         {
-                            "sid":14,
-                            "startTime":"18:00",
-                            "endTime":"00:00",
+                            "sid": 17,
+                            "startTime": "18:00",
+                            "endTime": "00:00",
                             "day": "Saturday",
-                            "requiredSkillLevel":10
+                            "requiredSkillLevel": 10
                         },
                         {
-                            "sid":12,
-                            "startTime":"09:00",
-                            "endTime":"18:00",
+                            "sid": 18,
+                            "startTime": "09:00",
+                            "endTime": "18:00",
                             "day": "Sunday",
                             "requiredSkillLevel": 12
                         },
                         {
-                            "sid":13,
-                            "startTime":"12:00",
-                            "endTime":"20:00",
+                            "sid": 19,
+                            "startTime": "12:00",
+                            "endTime": "20:00",
                             "day": "Sunday",
                             "requiredSkillLevel": 10
                         },
                         {
-                            "sid":14,
-                            "startTime":"18:00",
-                            "endTime":"00:00",
+                            "sid": 20,
+                            "startTime": "18:00",
+                            "endTime": "00:00",
                             "day": "Sunday",
-                            "requiredSkillLevel":10
+                            "requiredSkillLevel": 10
                         }
                     ],
-                    "employees":[
+                    "employees": [
                         {
-                            "eid":0,
-                            "name":"John",
+                            "eid": 0,
+                            "name": "John",
                             "skillLevel": 10,
                             "employeeType": "FULL_TIME"
                         },
                         {
-                            "eid":1,
-                            "name":"Elaine",
+                            "eid": 1,
+                            "name": "Elaine",
                             "skillLevel": 12,
                             "employeeType": "FULL_TIME"
-
                         },
                         {
-                            "eid":2,
-                            "name":"Kieran",
+                            "eid": 2,
+                            "name": "Kieran",
                             "skillLevel": 11,
                             "employeeType": "FULL_TIME"
                         },
                         {
-                            "eid":3,
-                            "name":"Amy",
+                            "eid": 3,
+                            "name": "Amy",
                             "skillLevel": 10,
                             "employeeType": "FULL_TIME"
                         },
                         {
-                            "eid":4,
-                            "name":"Maeve",
+                            "eid": 4,
+                            "name": "Steve",
                             "skillLevel": 9,
                             "employeeType": "FULL_TIME"
                         },
                         {
-                            "eid":5,
-                            "name":"Steve",
+                            "eid": 5,
+                            "name": "Maeve",
                             "skillLevel": 9,
                             "employeeType": "FULL_TIME"
                         },
                         {
-                            "eid":6,
-                            "name":"Tommy",
+                            "eid": 6,
+                            "name": "Tommy",
                             "skillLevel": 15,
                             "employeeType": "FULL_TIME"
                         },
                         {
-                            "eid":7,
-                            "name":"James",
+                            "eid": 7,
+                            "name": "James",
                             "skillLevel": 12,
                             "employeeType": "FULL_TIME"
                         }
@@ -294,39 +293,31 @@
 
             },
             insertSolvedDataToTable: function (data) {
-                let cell = document.createElement("td");
                 let tbody = document.getElementById('schedule-body');
-                let row = document.getElementById('schedule-body-row');
-                let tdata = document.getElementById('schedule-data');
                 let schData = this.solvedScheduleBody;
-                let objTestData = schData.shifts[0].startTime;
+                // let objTestData = schData.shifts[0].startTime;
 
                 /*  these for loops traverse the schedule table
-                    adding shifts where employee and day match
+                    adding shifts where an employee and day match the solved response
                  */
-                var cellText;
-                for (let d = 0; d < this.daysOfWeek.length; d++) {
-                    for (let e = 0; e < this.employees.length; e++) {
+                for (let e = 0; e < this.employees.length; e++) {
+                    let row = document.createElement("tr");
+                    let eCell = document.createElement("td");
+                    let eCellText = document.createTextNode(this.employees[e].name);
+                    eCell.appendChild(eCellText);
+                    row.appendChild(eCell);
+                    for (let d = 0; d < this.daysOfWeek.length; d++) {
                         for (let s = 0; s < schData.shifts.length; s++) {
-                            if (schData.shifts[s].day == this.daysOfWeek[d]) {
-                                if (schData.shifts[s].employee.name == this.employees[e].name) {
-                                    // let data =  "" + obj.shifts.[e].startTime + "-" + obj.shifts.[e].startTime;
-                                    let data = "data";
-                                    cellText = document.createTextNode(data);
-                                    cell.appendChild(cellText);
-                                    row.appendChild(cell);
-                                }
-                                // else{
-                                //     // let cellText = document.createTextNode("no text");
-                                //     // let cellText = document.createTextNode("!" + obj.shifts.[e].startTime + "-" + obj.shifts.[e].startTime);
-                                //     let cellText = document.createTextNode("!wrong");
-                                //     cell.appendChild(cellText);
-                                //     row.appendChild(cell);
-                                //     tbody.appendChild(row);
-                                // }
+                            if (schData.shifts[s].day == this.daysOfWeek[d] && schData.shifts[s].employee.name == this.employees[e].name) {
+                                // let data =  "" + obj.shifts.[e].startTime + "-" + obj.shifts.[e].startTime;
+                                let cell = document.createElement("td");
+                                let cellText = document.createTextNode("data");
+                                cell.appendChild(cellText);
+                                row.appendChild(cell);
                             }
                         }
                     }
+                    tbody.appendChild(row);
                 }
             },
             generateScheduleSolverBody: function() {
