@@ -15,8 +15,8 @@ import java.time.LocalTime;
 public class Shift {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "sid")
-    private int sid;
+    @Column(name = "shiftId")
+    private int shiftId;
 
     @Column(name = "startTime")
     private LocalTime startTime;
@@ -44,12 +44,12 @@ public class Shift {
         this.endTime = endTime;
     }
 
-    public int getSid() {
-        return sid;
+    public int getShiftId() {
+        return shiftId;
     }
 
-    public void setSid(int sid) {
-        this.sid = sid;
+    public void setShiftId(int sid) {
+        this.shiftId = sid;
     }
 
     public LocalTime getStartTime() {

@@ -29,7 +29,7 @@
                     <div class="card card-body collapse" id="skillForm">
                         <div class="form-group row">
                             <label for="skillName" class="col-sm-4 col-form-label">Skill Name</label>
-                            <input id="skillID" type="hidden" v-model="skill_id">
+                            <input id="skillId" type="hidden" v-model="skill_id">
                             <input class="form-control col-sm-8" id="skillName" placeholder="Skill Name" type="text"
                                    v-model="skill_name"/>
                         </div>
@@ -57,7 +57,7 @@
             <table class="table table-striped table-bordered">
                 <thead class="thead-admin">
                 <tr>
-                    <th>Skill ID</th>
+                    <th>Skill Id</th>
                     <th>Skill Name</th>
                     <th>Associated Department</th>
                     <th>Actions</th>
@@ -65,7 +65,7 @@
                 </thead>
                 <tbody>
                 <tr v-for="skill in skills">
-                    <td>{{ skill.skillID }}</td>
+                    <td>{{ skill.skillId }}</td>
                     <td>{{ skill.skillName }}</td>
                     <td>{{ skill.associatedDepartment }}</td>
                     <td>
@@ -95,6 +95,7 @@
             return {
                 skills: null,
                 departments: null,
+                associated_department: '',
                 skill_id: '',
                 skill_name: ''
             }
@@ -131,7 +132,7 @@
                 } else { // Update
                     axios
                         .post("/api/skills", {
-                            "skillID": this.skill_id,
+                            "skillId": this.skill_id,
                             "skillName": this.skill_name,
                             "associatedDepartment": this.associated_department
                         })
@@ -144,7 +145,7 @@
                 }
             },
             editSkill: function (skill) {
-                this.skill_id = skill.skillID;
+                this.skill_id = skill.skillId;
                 this.skill_name = skill.skillName;
                 this.associated_department = skill.associatedDepartment;
                 document.getElementById('skillForm')

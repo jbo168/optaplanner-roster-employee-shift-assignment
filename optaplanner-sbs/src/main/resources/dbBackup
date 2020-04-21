@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2020 at 04:32 PM
+-- Generation Time: Apr 21, 2020 at 06:29 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -75,24 +75,26 @@ INSERT INTO `department` (`departmentID`, `departmentName`) VALUES
 --
 
 CREATE TABLE `employee` (
-  `eid` int(11) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `skillLevel` varchar(10) DEFAULT NULL
+  `employeeId` int(11) NOT NULL,
+  `employeeName` varchar(255) DEFAULT NULL,
+  `skillLevel` varchar(10) DEFAULT NULL,
+  `employeeType` varchar(255) DEFAULT NULL,
+  `associatedDepartment` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`eid`, `name`, `skillLevel`) VALUES
-(3, NULL, 'TRAINEE'),
-(4, NULL, 'EXPERT'),
-(5, NULL, 'EXPERT'),
-(6, NULL, 'PROFICIENT'),
-(7, NULL, 'NOVICE'),
-(9, NULL, 'NOVICE'),
-(10, NULL, 'NOVICE'),
-(11, NULL, 'EXPERT');
+INSERT INTO `employee` (`employeeId`, `employeeName`, `skillLevel`, `employeeType`, `associatedDepartment`) VALUES
+(3, 'John', '5', 'FULL_TIME', 'BAR'),
+(4, 'Elaine', '4', 'PART_TIME', 'BAR'),
+(5, 'Kieran', '2', 'FULL_TIME', 'BAR'),
+(6, 'Amy', '5', 'FULL_TIME', 'BAR'),
+(7, 'Steve', '3', 'FULL_TIME', 'BAR'),
+(9, 'Maeve', '4', 'FULL_TIME', 'BAR'),
+(10, 'Tommy', '1', 'FULL_TIME', 'BAR'),
+(11, 'James', '5', 'PART_TIME', 'BAR');
 
 -- --------------------------------------------------------
 
@@ -136,21 +138,68 @@ INSERT INTO `manager` (`managerId`, `managerName`, `associatedDepartment`, `acco
 --
 
 CREATE TABLE `shift` (
-  `sid` int(11) NOT NULL,
+  `shiftId` int(11) NOT NULL,
   `startTime` time DEFAULT NULL,
   `endTime` time DEFAULT NULL,
-  `requiredSkillLevel` int(11) DEFAULT NULL
+  `requiredSkillLevel` int(11) DEFAULT NULL,
+  `day` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `shift`
 --
 
-INSERT INTO `shift` (`sid`, `startTime`, `endTime`, `requiredSkillLevel`) VALUES
-(1, '09:00:00', '18:00:00', NULL),
-(2, '13:00:00', '22:00:00', NULL),
-(3, '18:00:00', '00:00:00', NULL),
-(4, '11:00:00', '19:00:00', NULL);
+INSERT INTO `shift` (`shiftId`, `startTime`, `endTime`, `requiredSkillLevel`, `day`) VALUES
+(1, '09:00:00', '18:00:00', 5, 'Monday'),
+(2, '12:00:00', '20:00:00', 2, 'Monday'),
+(3, '18:00:00', '00:00:00', 4, 'Monday'),
+(7, '09:00:00', '18:00:00', 5, 'Tuesday'),
+(8, '12:00:00', '20:00:00', 2, 'Tuesday'),
+(9, '18:00:00', '00:00:00', 4, 'Tuesday'),
+(10, '09:00:00', '18:00:00', 5, 'Wednesday'),
+(11, '12:00:00', '20:00:00', 2, 'Wednesday'),
+(12, '18:00:00', '00:00:00', 4, 'Wednesday'),
+(13, '09:00:00', '18:00:00', 5, 'Thursday'),
+(14, '12:00:00', '20:00:00', 2, 'Thursday'),
+(15, '18:00:00', '00:00:00', 4, 'Thursday'),
+(16, '09:00:00', '18:00:00', 5, 'Friday'),
+(17, '12:00:00', '20:00:00', 2, 'Friday'),
+(18, '18:00:00', '00:00:00', 4, 'Friday'),
+(19, '09:00:00', '18:00:00', 5, 'Saturday'),
+(20, '12:00:00', '20:00:00', 2, 'Saturday'),
+(21, '18:00:00', '00:00:00', 4, 'Saturday'),
+(22, '09:00:00', '18:00:00', 5, 'Sunday'),
+(23, '12:00:00', '20:00:00', 2, 'Sunday'),
+(24, '18:00:00', '00:00:00', 4, 'Sunday');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shift_change`
+--
+
+CREATE TABLE `shift_change` (
+  `shiftChangeId` int(11) NOT NULL,
+  `currentEmployeeName` varchar(255) DEFAULT NULL,
+  `currentShiftTime` time DEFAULT NULL,
+  `swapToShiftTime` time DEFAULT NULL,
+  `currentShiftDay` varchar(255) DEFAULT NULL,
+  `swapShiftDay` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shift_swap`
+--
+
+CREATE TABLE `shift_swap` (
+  `shiftSwapId` int(11) NOT NULL,
+  `employeeRequestName` varchar(255) DEFAULT NULL,
+  `employeeSwapName` varchar(255) DEFAULT NULL,
+  `currentShiftId` int(11) DEFAULT NULL,
+  `shiftToSwapId` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -186,19 +235,19 @@ INSERT INTO `shift_template` (`shiftTemplateId`, `startDate`, `endDate`, `spotId
 --
 
 CREATE TABLE `skill` (
-  `skillID` int(11) NOT NULL,
+  `skillId` int(11) NOT NULL,
   `skillName` varchar(255) DEFAULT NULL,
   `associatedDepartment` varchar(255) DEFAULT NULL,
-  `deptID` int(11) DEFAULT NULL
+  `deptId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `skill`
 --
 
-INSERT INTO `skill` (`skillID`, `skillName`, `associatedDepartment`, `deptID`) VALUES
-(1, 'Sandwich Counter', 'Bar', NULL),
-(2, 'Bar Staff', 'Bar', NULL);
+INSERT INTO `skill` (`skillId`, `skillName`, `associatedDepartment`, `deptId`) VALUES
+(1, 'Sandwich Counter', 'BAR', NULL),
+(2, 'Bar Staff', 'BAR', NULL);
 
 -- --------------------------------------------------------
 
@@ -254,7 +303,7 @@ ALTER TABLE `department`
 -- Indexes for table `employee`
 --
 ALTER TABLE `employee`
-  ADD PRIMARY KEY (`eid`);
+  ADD PRIMARY KEY (`employeeId`);
 
 --
 -- Indexes for table `employee_availability`
@@ -273,7 +322,19 @@ ALTER TABLE `manager`
 -- Indexes for table `shift`
 --
 ALTER TABLE `shift`
-  ADD PRIMARY KEY (`sid`);
+  ADD PRIMARY KEY (`shiftId`);
+
+--
+-- Indexes for table `shift_change`
+--
+ALTER TABLE `shift_change`
+  ADD PRIMARY KEY (`shiftChangeId`);
+
+--
+-- Indexes for table `shift_swap`
+--
+ALTER TABLE `shift_swap`
+  ADD PRIMARY KEY (`shiftSwapId`);
 
 --
 -- Indexes for table `shift_template`
@@ -289,8 +350,8 @@ ALTER TABLE `shift_template`
 -- Indexes for table `skill`
 --
 ALTER TABLE `skill`
-  ADD PRIMARY KEY (`skillID`),
-  ADD KEY `skill_dept_fk` (`deptID`);
+  ADD PRIMARY KEY (`skillId`),
+  ADD KEY `skill_dept_fk` (`deptId`);
 
 --
 -- Indexes for table `spot`
@@ -326,7 +387,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `eid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `employeeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `manager`
@@ -338,7 +399,7 @@ ALTER TABLE `manager`
 -- AUTO_INCREMENT for table `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `shiftId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `shift_template`
@@ -350,7 +411,7 @@ ALTER TABLE `shift_template`
 -- AUTO_INCREMENT for table `skill`
 --
 ALTER TABLE `skill`
-  MODIFY `skillID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `skillId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `spot`
@@ -378,15 +439,14 @@ ALTER TABLE `contract`
 -- Constraints for table `employee_availability`
 --
 ALTER TABLE `employee_availability`
-  ADD CONSTRAINT `employeeavailability_employee__fk` FOREIGN KEY (`employeeId`) REFERENCES `employee` (`eid`);
+  ADD CONSTRAINT `employeeavailability_employee__fk` FOREIGN KEY (`employeeId`) REFERENCES `employee` (`employeeId`);
 
 --
 -- Constraints for table `shift_template`
 --
 ALTER TABLE `shift_template`
   ADD CONSTRAINT `shift_template__dept_fk` FOREIGN KEY (`deptId`) REFERENCES `department` (`departmentID`),
-  ADD CONSTRAINT `shift_template_employee__fk` FOREIGN KEY (`employeeId`) REFERENCES `employee` (`eid`),
-  ADD CONSTRAINT `shift_template_shift_fk` FOREIGN KEY (`shiftId`) REFERENCES `shift` (`sid`),
+  ADD CONSTRAINT `shift_template_employee__fk` FOREIGN KEY (`employeeId`) REFERENCES `employee` (`employeeId`),
   ADD CONSTRAINT `shift_template_spot_fk` FOREIGN KEY (`spotId`) REFERENCES `spot` (`spotId`);
 
 --

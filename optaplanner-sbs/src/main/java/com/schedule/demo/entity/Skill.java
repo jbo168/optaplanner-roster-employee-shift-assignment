@@ -10,8 +10,8 @@ import javax.persistence.*;
 public class Skill {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "skillID")
-    private Long skillID;
+    @Column(name = "skillId")
+    private Long skillId;
 
     @Column(name = "skillName")
     private String skillName;
@@ -26,12 +26,12 @@ public class Skill {
 
     }
 
-    public Long getSkillID() {
-        return skillID;
+    public Long getSkillId() {
+        return skillId;
     }
 
-    public void setSkillID(Long skillID) {
-        this.skillID = skillID;
+    public void setSkillId(Long skillID) {
+        this.skillId = skillID;
     }
 
     public String getSkillName() {

@@ -64,7 +64,7 @@
             <table class="table table-striped table-bordered">
                 <thead class="thead-admin">
                 <tr>
-                    <th>Shift ID</th>
+                    <th>Shift Id</th>
                     <th>Start Time</th>
                     <th>End Time</th>
                     <th>Associated Department</th>
@@ -73,7 +73,7 @@
                 </thead>
                 <tbody>
                 <tr v-for="shift in shifts">
-                    <td>{{ shift.shiftID }}</td>
+                    <td>{{ shift.shiftId }}</td>
                     <td>{{ shift.startTime }}</td>
                     <td>{{ shift.endTime }}</td>
                     <td>{{ shift.associatedDepartment }}</td>
@@ -156,7 +156,7 @@
                 }
             },
             editShift: function (shift) {
-                this.shift_id = shift.shiftID;
+                this.shift_id = shift.shiftId;
                 this.shift_startTime = shift.shiftStartTime;
                 this.shift_endTime = shift.shiftEndTime;
                 this.associated_department = shift.associatedDepartment;

@@ -48,9 +48,14 @@
                             </select>
                         </div>
                         <div class="form-group row">
-                            <label for="accountType" class="col-sm-4 col-form-label">Account Type</label>
-                            <input id="accountType" class="form-control col-sm-8" placeholder="Account Type" type="text"
-                                   v-model="account_type"/>
+                            <label for="employeeType" class="col-sm-4 col-form-label">Employee Type</label>
+                            <input id="employeeType" class="form-control col-sm-8" placeholder="Employee Type" type="text"
+                                   v-model="employee_type"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="skillLevel" class="col-sm-4 col-form-label">Skill Level</label>
+                            <input id="skillLevel" class="form-control col-sm-8" placeholder="Skill Level" type="text"
+                                   v-model="skill_level"/>
                         </div>
                         <div class="form-group row">
                             <div class="col col-sm-4"></div>
@@ -65,19 +70,21 @@
             <table class="table table-striped table-bordered">
                 <thead class="thead-admin">
                 <tr>
-                    <th>Employee ID</th>
+                    <th>Employee Id</th>
                     <th>Employee Name</th>
                     <th>Associated Department</th>
-                    <th>Account Type</th>
+                    <th>Employee Type</th>
+                    <th>Skill Level</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr v-for="employee in employees">
-                    <td>{{ employee.employeeID }}</td>
+                    <td>{{ employee.employeeId }}</td>
                     <td>{{ employee.employeeName }}</td>
                     <td>{{ employee.associatedDepartment }}</td>
-                    <td>{{ employee.accountType }}</td>
+                    <td>{{ employee.employeeType }}</td>
+                    <td>{{ employee.skillLevel }}</td>
                     <td>
                         <button class="btn btn-primary" v-on:click="editEmployee(employee)">Edit</button>
                         <button class="btn btn-danger" v-on:click="deleteEmployee(employee)">Delete</button>
@@ -105,7 +112,8 @@
                 employee_id: null,
                 employee_name: null,
                 associated_department: null,
-                account_type: null,
+                employee_type: null,
+                skill_level: null,
                 employees: null,
                 departments: null
             }
@@ -127,43 +135,48 @@
                         .post("/api/employees", {
                             "employeeName": this.employee_name,
                             "associatedDepartment": this.associated_department,
-                            "accountType": this.account_type,
+                            "employeeType": this.employee_type,
+                            "skillLevel": this.skill_level
                         })
                         .then(savedEmployee => {
                             this.employees.push(savedEmployee.data);
                             this.employee_name = '';
                             this.employee_id = '';
                             this.associated_department = null;
-                            this.account_type = '';
+                            this.employee_type = '';
+                            this.skill_level = '';
                         })
                 } else { // Update
                     axios
                         .post("/api/employees", {
-                            "employeeID": this.employee_id,
+                            "employeeId": this.employee_id,
                             "employeeName": this.employee_name,
                             "associatedDepartment": this.associated_department,
-                            "accountType": this.account_type
+                            "employeeType": this.employee_type,
+                            "skillLevel": this.skill_level
                         })
                         .then(savedEmployee => {
                             this.getEmployees();
                             this.employee_name = '';
                             this.employee_id = '';
                             this.associated_department = '';
-                            this.account_type = '';
+                            this.employee_type = '';
+                            this.skill_level = '';
                         })
                 }
             },
             editEmployee: function (employee) {
-                this.employee_id = employee.employeeID;
+                this.employee_id = employee.employeeId;
                 this.employee_name = employee.employeeName;
                 this.associated_department = employee.associatedDepartment;
-                this.account_type = employee.accountType;
+                this.employee_type = employee.employeeType;
+                this.skill_level = employee.skillLevel;
                 document.getElementById('employeeForm')
                     .setAttribute("class", document.getElementById('employeeForm').getAttribute("class") + " show");
             },
             deleteEmployee: async function (employee) {
                 await axios
-                    .delete("/api/employees/" + employee.employeeID);
+                    .delete("/api/employees/" + employee.employeeId);
                 this.getEmployees();
             },
             getDepartments: function () {
