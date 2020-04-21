@@ -12,7 +12,7 @@ import static org.optaplanner.core.api.score.stream.ConstraintCollectors.sum;
  * @create: 13-Apr-2020
  **/
 
-public class ConstraintProvider implements org.optaplanner.core.api.score.stream.ConstraintProvider {
+public class ScheduleConstraintProvider implements org.optaplanner.core.api.score.stream.ConstraintProvider {
     @Override
     public Constraint[] defineConstraints(ConstraintFactory constraintFactory) {
         return new Constraint[]{

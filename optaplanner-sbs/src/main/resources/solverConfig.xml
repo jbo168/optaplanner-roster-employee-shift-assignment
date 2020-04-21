@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solver>
+    <solutionClass>com.schedule.demo.domain.Roster</solutionClass>
+    <entityClass>com.schedule.demo.entity.Shift</entityClass>
+
+    <scoreDirectorFactory>
+        <constraintProviderClass>com.schedule.demo.constraint.ScheduleConstraintProvider</constraintProviderClass>
+    </scoreDirectorFactory>
+</solver>

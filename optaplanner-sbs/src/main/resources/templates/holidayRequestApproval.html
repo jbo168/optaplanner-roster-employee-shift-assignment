@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="mainStyles.css">
+
+    <meta charset="UTF-8">
+    <title>Shift Change Approval</title>
+</head>
+<body>
+<div id="page-container">
+    <div id="content-wrap">
+
+        <div th:replace="fragments/header :: header"></div>
+        <div th:replace="fragments/adminPageTitle :: adminPageTitle ('Holiday Request Approval')"></div>
+
+        <br><br>
+
+        <div class="container" id="main">
+
+            <table class="table table-striped table-bordered">
+                <thead class="thead-admin">
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Current Shift Start Time</th>
+                    <th>Current Shift End Time</th>
+                    <th>Current Shift Day</th>
+                    <th>Change Shift Start Time</th>
+                    <th>Change Shift End Time</th>
+                    <th>Change Shift Day</th>
+                    <th>Approval</th>
+                    <th colspan="2" class="text-center">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="shiftChange in shiftChanges">
+                    <td>{{ shiftChange.employeeName }}</td>
+                    <td>{{ shiftChange.currentShiftStartTime }}</td>
+                    <td>{{ shiftChange.currentShiftEndTime }}</td>
+                    <td>{{ shiftChange.currentShiftDay }}</td>
+                    <td>{{ shiftChange.shiftChangeStartTime }}</td>
+                    <td>{{ shiftChange.shiftChangeEndTime }}</td>
+                    <td>{{ shiftChange.shiftChangeDay }}</td>
+                    <td>{{ shiftChange.shiftChangeApproved }}</td>
+                    <td>
+                        <button class="btn btn-info" v-on:click="approveChangeRequest()">Approve</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" v-on:click="rejectChangeRequest()">Reject</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+
+
+<!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>-->
+
+<script src="webjars/vue/vue.min.js"></script>
+<script src="webjars/axios/dist/axios.min.js"></script>
+
+
+<script>
+    var app = new Vue({
+        el: '#main',
+        data(){
+            return {
+                shiftChanges: null
+            }
+        },
+        mounted() {
+            this.getShiftChanges();
+        },
+        methods: {
+            getShiftChanges: function () {
+                axios
+                    .get("/api/shiftChanges")
+                    .then(response => (this.shiftChanges = response.data))
+            },
+            approveChangeRequest: function () {
+
+            },
+            rejectChangeRequest: function () {
+
+            }
+        }
+    })
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
