@@ -308,7 +308,7 @@
                     row.appendChild(eCell);
                     for (let d = 0; d < this.daysOfWeek.length; d++) {
                         for (let s = 0; s < schData.shifts.length; s++) {
-                            if (schData.shifts[s].day == this.daysOfWeek[d] && schData.shifts[s].employee.name == this.employees[e].name) {
+                            if (schData.shifts[s].day === this.daysOfWeek[d] && schData.shifts[s].employee.name === this.employees[e].name) {
                                 // let data =  "" + obj.shifts.[e].startTime + "-" + obj.shifts.[e].startTime;
                                 let cell = document.createElement("td");
                                 let cellText = document.createTextNode("data");

@@ -1,5 +1,6 @@
 package com.schedule.demo.entity;
 
+import com.schedule.demo.utils.Departments;
 import com.schedule.demo.utils.EmployeeType;
 
 import javax.persistence.*;
@@ -12,11 +13,11 @@ import javax.persistence.*;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "eid")
-    private int eid;
+    @Column(name = "employeeId")
+    private int employeeId;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "employeeName")
+    private String employeeName;
 
     @Column(name = "skillLevel")
     private int skillLevel;
@@ -25,24 +26,44 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     private EmployeeType employeeType;
 
+    @Column(name = "associatedDepartment")
+    @Enumerated(EnumType.STRING)
+    private Departments associatedDepartment;
+
     public Employee(){
 
     }
 
-    public int getEid() {
-        return eid;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEid(int eid) {
-        this.eid = eid;
+    public void setEmployeeId(int eid) {
+        this.employeeId = eid;
     }
 
-    public String getName() {
-        return name;
+    public String getEmployeeName() {
+        return employeeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmployeeName(String name) {
+        this.employeeName = name;
+    }
+
+    public EmployeeType getEmployeeType() {
+        return employeeType;
+    }
+
+    public void setEmployeeType(EmployeeType employeeType) {
+        this.employeeType = employeeType;
+    }
+
+    public Departments getAssociatedDepartment() {
+        return associatedDepartment;
+    }
+
+    public void setAssociatedDepartment(Departments associatedDepartment) {
+        this.associatedDepartment = associatedDepartment;
     }
 
     // constraint getters and setters
@@ -52,13 +73,5 @@ public class Employee {
 
     public void setSkillLevel(int skillLevel) {
         this.skillLevel = skillLevel;
-    }
-
-    public EmployeeType getEmployeeType() {
-        return employeeType;
-    }
-
-    public void setEmployeeType(EmployeeType employeeType) {
-        this.employeeType = employeeType;
     }
 }
