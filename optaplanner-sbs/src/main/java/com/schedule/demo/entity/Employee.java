@@ -30,6 +30,9 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     private Departments associatedDepartment;
 
+//    @Column(name = "weeklyShiftAllowance")
+//    private int weeklyShiftAllowance;
+
     public Employee(){
 
     }
@@ -74,4 +77,12 @@ public class Employee {
     public void setSkillLevel(int skillLevel) {
         this.skillLevel = skillLevel;
     }
+
+//    public int getWeeklyShiftAllowance() {
+//        return weeklyShiftAllowance;
+//    }
+//
+//    public void setWeeklyShiftAllowance(int weeklyShiftAllowance) {
+//        this.weeklyShiftAllowance = weeklyShiftAllowance;
+//    }
 }

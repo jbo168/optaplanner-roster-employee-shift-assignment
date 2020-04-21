@@ -1,6 +1,8 @@
 package com.schedule.demo.service;
 
 import com.schedule.demo.entity.Shift;
+import com.schedule.demo.entity.ShiftChange;
+import com.schedule.demo.repository.ShiftChangeRepository;
 import com.schedule.demo.repository.ShiftRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import java.util.List;
 public class ShiftService {
     @Autowired
     private ShiftRepository shiftRepository;
+    @Autowired
+    private ShiftChangeRepository shiftChangeRepository;
 
     @Transactional
     public List<Shift> getAllShifts(){
@@ -28,5 +32,9 @@ public class ShiftService {
 
     public void deleteShift(Long shiftID) {
         shiftRepository.deleteById(shiftID);
+    }
+
+    public List<ShiftChange> getAllShiftChangeRequests(){
+        return shiftChangeRepository.findAll();
     }
 }

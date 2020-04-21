@@ -17,11 +17,14 @@ import java.util.List;
  **/
 @PlanningSolution
 public class Roster {
-
+    @ProblemFactCollectionProperty
+    @ValueRangeProvider(id = "employee")
     private List<Employee> employees;
 
+    @PlanningEntityCollectionProperty
     private List<Shift> shifts;
 
+    @PlanningScore
     private HardSoftScore score;
 
     public Roster(){}
@@ -31,8 +34,6 @@ public class Roster {
         this.shifts = shifts;
     }
 
-    @ProblemFactCollectionProperty
-    @ValueRangeProvider(id = "employee")
     public List<Employee> getEmployees() {
         return employees;
     }
@@ -41,7 +42,6 @@ public class Roster {
         this.employees = employees;
     }
 
-    @PlanningEntityCollectionProperty
     public List<Shift> getShifts() {
         return shifts;
     }
@@ -50,7 +50,6 @@ public class Roster {
         this.shifts = shifts;
     }
 
-    @PlanningScore
     public HardSoftScore getScore() {
         return score;
     }
