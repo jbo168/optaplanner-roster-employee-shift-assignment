@@ -5,10 +5,7 @@ import com.schedule.demo.entity.ShiftTemplate;
 import com.schedule.demo.repository.ShiftTemplateRepository;
 import com.schedule.demo.service.ShiftService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -36,5 +33,10 @@ public class ShiftChangesController {
     @GetMapping("/shiftChanges")
     public List<ShiftChange> shiftChangeRequestList(){
         return shiftService.getAllShiftChangeRequests();
+    }
+
+    @PostMapping("/shiftChange/{approval}")
+    public boolean approveShiftChangeRequest(@PathVariable String approval){
+        return true;
     }
 }

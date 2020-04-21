@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ShiftChangeRepository extends JpaRepository<ShiftChange, Long> {
+
+//    @Query(value = "SELECT * FROM shift_change", nativeQuery = true)
+//    List<ShiftChange> getAllShiftChanges();
+
 }

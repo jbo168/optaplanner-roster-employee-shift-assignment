@@ -27,14 +27,14 @@ public class ShiftChange {
     @Column(name = "currentShiftDay")
     private String currentShiftDay;
 
-    @Column(name = "shiftSwapStartTime")
-    private LocalTime shiftSwapStartTime;
+    @Column(name = "shiftChangeStartTime")
+    private LocalTime shiftChangeStartTime;
 
-    @Column(name = "shiftSwapEndTime")
-    private LocalTime shiftSwapEndTime;
+    @Column(name = "shiftChangeEndTime")
+    private LocalTime shiftChangeEndTime;
 
-    @Column(name = "swapShiftDay")
-    private String swapShiftDay;
+    @Column(name = "shiftChangeDay")
+    private String shiftChangeDay;
 
     @Column(name = "shiftChangeApproved")
     private boolean shiftChangeApproved;
@@ -82,28 +82,28 @@ public class ShiftChange {
         this.currentShiftDay = currentShiftDay;
     }
 
-    public LocalTime getShiftSwapStartTime() {
-        return shiftSwapStartTime;
+    public LocalTime getShiftChangeStartTime() {
+        return shiftChangeStartTime;
     }
 
-    public void setShiftSwapStartTime(LocalTime shiftSwapStartTime) {
-        this.shiftSwapStartTime = shiftSwapStartTime;
+    public void setShiftChangeStartTime(LocalTime shiftSwapStartTime) {
+        this.shiftChangeStartTime = shiftSwapStartTime;
     }
 
-    public LocalTime getShiftSwapEndTime() {
-        return shiftSwapEndTime;
+    public LocalTime getShiftChangeEndTime() {
+        return shiftChangeEndTime;
     }
 
-    public void setShiftSwapEndTime(LocalTime shiftSwapEndTime) {
-        this.shiftSwapEndTime = shiftSwapEndTime;
+    public void setShiftChangeEndTime(LocalTime shiftSwapEndTime) {
+        this.shiftChangeEndTime = shiftSwapEndTime;
     }
 
-    public String getSwapShiftDay() {
-        return swapShiftDay;
+    public String getShiftChangeDay() {
+        return shiftChangeDay;
     }
 
-    public void setSwapShiftDay(String swapShiftDay) {
-        this.swapShiftDay = swapShiftDay;
+    public void setShiftChangeDay(String swapShiftDay) {
+        this.shiftChangeDay = swapShiftDay;
     }
 
     public boolean isShiftChangeApproved() {

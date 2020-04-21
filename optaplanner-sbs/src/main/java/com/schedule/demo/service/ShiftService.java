@@ -34,6 +34,7 @@ public class ShiftService {
         shiftRepository.deleteById(shiftID);
     }
 
+    @Transactional
     public List<ShiftChange> getAllShiftChangeRequests(){
         return shiftChangeRepository.findAll();
     }
