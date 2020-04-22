@@ -1,6 +1,7 @@
 package com.schedule.demo.web.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author: John Long
@@ -8,4 +9,8 @@ import org.springframework.stereotype.Controller;
  **/
 @Controller
 public class RosterController {
+    @RequestMapping("/roster")
+    public String home(){
+        return "roster";
+    }
 }

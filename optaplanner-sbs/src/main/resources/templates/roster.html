@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="mainStyles.css">
+
+    <meta charset="UTF-8">
+    <title>Roster</title>
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+</head>
+<body>
+<div id="page-container">
+    <div id="content-wrap">
+
+        <div th:replace="fragments/header :: header"></div>
+        <div class="row justify-content-md-center">
+            <div class="col-md-4">
+                <div th:replace="fragments/adminPageTitle :: adminPageTitle ('Weekly Roster')"></div>
+            </div>
+            <div class="col-md-2 generate-schedule-btn">
+                <button class="btn btn-primary" v-on:click="postToSolver()">Generate Roster</button>
+            </div>
+            <div class="col-md-2 generate-schedule-btn">
+                <button class="btn btn-success" v-on:click="insertSolvedDataToTable()">Populate Schedule</button>
+            </div>
+        </div>
+
+        <br><br>
+
+        <div class="container" id="main">
+            <table class="table" id="rosterTable">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Employee</th>
+                    <th v-for="day in daysOfWeek">{{ day }}</th>
+                </tr>
+                </thead>
+                <tbody id="schedule-body">
+<!--                <tr id="schedule-body-row" v-for="employee in employees">-->
+<!--                    <td id="schedule-data">{{ employee.name }}</td>-->
+<!--                </tr>-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+
+
+
+<script src="webjars/vue/vue.min.js"></script>
+<script src="webjars/axios/dist/axios.min.js"></script>
+
+
+<script>
+    var app = new Vue({
+        el: '#page-container',
+        components: {
+        },
+        data() {
+            return {
+                employees: null,
+                shiftsDB: null,
+                postScheduleBody: '',
+                solvedScheduleBody: '',
+                counter: 0,
+                daysOfWeek: null
+            }
+        },
+        mounted() {
+            this.getEmployees();
+            this.getDaysOfWeek();
+        },
+        methods: {
+            getEmployees: function () {
+                axios
+                    .get("/api/employees")
+                    .then(response => (this.employees = response.data))
+            },
+            getAllShifts: function() {
+                axios
+                    .get("/api/shifts")
+                    .then(response => (this.shifts = response.data))
+            },
+            postToSolver: function() {
+                axios.post('/api/solve', {
+                    "shifts": [
+                        {
+                            "shiftId": 0,
+                            "startTime": "09:00",
+                            "endTime": "18:00",
+                            "day": "Monday",
+                            "requiredSkillLevel": 12
+                        },
+                        {
+                            "shiftId": 1,
+                            "startTime": "12:00",
+                            "endTime": "20:00",
+                            "day": "Monday",
+                            "requiredSkillLevel": 10
+                        },
+                        {
+                            "shiftId": 2,
+                            "startTime": "18:00",
+                            "endTime": "00:00",
+                            "day": "Monday",
+                            "requiredSkillLevel": 10
+                        },
+                        {
+                            "shiftId": 3,
+                            "startTime": "09:00",
+                            "endTime": "18:00",
+                            "day": "Tuesday",
+                            "requiredSkillLevel": 12
+                        },
+                        {
+                            "shiftId": 4,
+                            "startTime": "12:00",
+                            "endTime": "20:00",
+                            "day": "Tuesday",
+                            "requiredSkillLevel": 10
+                        },
+                        {
+                            "shiftId": 5,
+                            "startTime": "18:00",
+                            "endTime": "00:00",
+                            "day": "Tuesday",
+                            "requiredSkillLevel": 10
+                        },
+                        {
+                            "shiftId": 6,
+                            "startTime": "09:00",
+                            "endTime": "18:00",
+                            "day": "Wednesday",
+                            "requiredSkillLevel": 12
+                        },
+                        {
+                            "shiftId": 7,
+                            "startTime": "12:00",
+                            "endTime": "20:00",
+                            "day": "Wednesday",
+                            "requiredSkillLevel": 10
+                        },
+                        {
+                            "shiftId": 8,
+                            "startTime": "18:00",
+                            "endTime": "00:00",
+                            "day": "Wednesday",
+                            "requiredSkillLevel": 10
+                        },
+                        {
+                            "shiftId": 9,
+                            "startTime": "09:00",
+                            "endTime": "18:00",
+                            "day": "Thursday",
+                            "requiredSkillLevel": 12
+                        },
+                        {
+                            "shiftId": 10,
+                            "startTime": "12:00",
+                            "endTime": "20:00",
+                            "day": "Thursday",
+                            "requiredSkillLevel": 10
+                        },
+                        {
+                            "shiftId": 11,
+                            "startTime": "18:00",
+                            "endTime": "00:00",
+                            "day": "Thursday",
+                            "requiredSkillLevel": 10
+                        },
+                        {
+                            "shiftId": 12,
+                            "startTime": "09:00",
+                            "endTime": "18:00",
+                            "day": "Friday",
+                            "requiredSkillLevel": 12
+                        },
+                        {
+                            "shiftId": 13,
+                            "startTime": "12:00",
+                            "endTime": "20:00",
+                            "day": "Friday",
+                            "requiredSkillLevel": 10
+                        },
+                        {
+                            "shiftId": 14,
+                            "startTime": "18:00",
+                            "endTime": "00:00",
+                            "day": "Friday",
+                            "requiredSkillLevel": 10
+                        },
+                        {
+                            "shiftId": 15,
+                            "startTime": "09:00",
+                            "endTime": "18:00",
+                            "day": "Saturday",
+                            "requiredSkillLevel": 12
+                        },
+                        {
+                            "shiftId": 16,
+                            "startTime": "12:00",
+                            "endTime": "20:00",
+                            "day": "Saturday",
+                            "requiredSkillLevel": 10
+                        },
+                        {
+                            "shiftId": 17,
+                            "startTime": "18:00",
+                            "endTime": "00:00",
+                            "day": "Saturday",
+                            "requiredSkillLevel": 10
+                        },
+                        {
+                            "shiftId": 18,
+                            "startTime": "09:00",
+                            "endTime": "18:00",
+                            "day": "Sunday",
+                            "requiredSkillLevel": 12
+                        },
+                        {
+                            "shiftId": 19,
+                            "startTime": "12:00",
+                            "endTime": "20:00",
+                            "day": "Sunday",
+                            "requiredSkillLevel": 10
+                        },
+                        {
+                            "shiftId": 20,
+                            "startTime": "18:00",
+                            "endTime": "00:00",
+                            "day": "Sunday",
+                            "requiredSkillLevel": 10
+                        }
+                    ],
+                    "employees": [
+                        {
+                            "employeeId": 0,
+                            "employeeName": "John",
+                            "skillLevel": 10,
+                            "employeeType": "FULL_TIME",
+                            "associatedDepartment": "BAR",
+                            "weeklyShiftAllowance": 5
+                        },
+                        {
+                            "employeeId": 1,
+                            "employeeName": "Elaine",
+                            "skillLevel": 12,
+                            "employeeType": "FULL_TIME",
+                            "associatedDepartment": "BAR",
+                            "weeklyShiftAllowance": 5
+                        },
+                        {
+                            "employeeId": 2,
+                            "employeeName": "Kieran",
+                            "skillLevel": 11,
+                            "employeeType": "FULL_TIME",
+                            "associatedDepartment": "BAR",
+                            "weeklyShiftAllowance": 5
+                        },
+                        {
+                            "employeeId": 3,
+                            "employeeName": "Amy",
+                            "skillLevel": 10,
+                            "employeeType": "FULL_TIME",
+                            "associatedDepartment": "BAR",
+                            "weeklyShiftAllowance": 5
+                        },
+                        {
+                            "employeeId": 4,
+                            "employeeName": "Steve",
+                            "skillLevel": 9,
+                            "employeeType": "FULL_TIME",
+                            "associatedDepartment": "BAR",
+                            "weeklyShiftAllowance": 5
+                        },
+                        {
+                            "employeeId": 5,
+                            "employeeName": "Maeve",
+                            "skillLevel": 9,
+                            "employeeType": "FULL_TIME",
+                            "associatedDepartment": "BAR",
+                            "weeklyShiftAllowance": 5
+                        },
+                        {
+                            "employeeId": 6,
+                            "employeeName": "Tommy",
+                            "skillLevel": 15,
+                            "employeeType": "FULL_TIME",
+                            "associatedDepartment": "BAR",
+                            "weeklyShiftAllowance": 5
+                        },
+                        {
+                            "employeeId": 7,
+                            "employeeName": "James",
+                            "skillLevel": 12,
+                            "employeeType": "FULL_TIME",
+                            "associatedDepartment": "BAR",
+                            "weeklyShiftAllowance": 5
+                        }
+                    ]
+                })
+                    .then((response) => {
+                        this.solvedScheduleBody = response.data;
+                    }, (error) => {
+                        console.log(error);
+                    });
+
+            },
+            insertSolvedDataToTable: function (data) {
+                let tbody = document.getElementById('schedule-body');
+                let schData = this.solvedScheduleBody;
+                // let objTestData = schData.shifts[0].startTime;
+
+                /*  these for loops traverse the schedule table
+                    adding shifts where an employee and day match the solved response
+                 */
+                for (let e = 0; e < this.employees.length; e++) {
+                    let row = document.createElement("tr");
+                    let eCell = document.createElement("td");
+                    let eCellText = document.createTextNode(this.employees[e].name);
+                    eCell.appendChild(eCellText);
+                    row.appendChild(eCell);
+                    for (let d = 0; d < this.daysOfWeek.length; d++) {
+                        for (let s = 0; s < schData.shifts.length; s++) {
+                            if (schData.shifts[s].day === this.daysOfWeek[d] && schData.shifts[s].employee.name === this.employees[e].name) {
+                                // let data =  "" + obj.shifts.[e].startTime + "-" + obj.shifts.[e].startTime;
+                                let cell = document.createElement("td");
+                                let cellText = document.createTextNode("data");
+                                cell.appendChild(cellText);
+                                row.appendChild(cell);
+                            }
+                        }
+                    }
+                    tbody.appendChild(row);
+                }
+            },
+            generateScheduleSolverBody: function() {
+                let e, s = "";
+
+                this.postScheduleBody = {
+                    "shifts": [
+                        {
+                        }
+                    ],
+                    "employees": [
+                        {
+                        }
+                    ]
+                }
+
+                console.log(this.postScheduleBody);
+                return this.postScheduleBody;
+            },
+            getDaysOfWeek: function () {
+                axios
+                    .get("/api/daysOfWeek")
+                    .then(response => (this.daysOfWeek = response.data))
+            },
+        }
+    })
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

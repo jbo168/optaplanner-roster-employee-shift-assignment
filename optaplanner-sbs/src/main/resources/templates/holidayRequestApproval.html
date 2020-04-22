@@ -27,7 +27,7 @@
                     <th>Date From</th>
                     <th>Date To</th>
                     <th>Approval</th>
-                    <th>Actions</th>
+                    <th colspan="2" class="text-center">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -35,9 +35,11 @@
                     <td>{{ holiday.employeeName }}</td>
                     <td>{{ holiday.dateFrom }}</td>
                     <td>{{ holiday.dateTo }}</td>
-                    <td>{{ holiday.shiftChangeApproved }}</td>
-                    <td>
+                    <td>{{ holiday.holidayRequestApproval }}</td>
+                    <td class="text-center">
                         <button class="btn btn-info" v-on:click="approveHolidayRequest()">Approve</button>
+                    </td>
+                    <td class="text-center">
                         <button class="btn btn-danger" v-on:click="rejectHolidayRequest()">Reject</button>
                     </td>
                 </tr>
