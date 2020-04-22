@@ -19,7 +19,7 @@ public class HolidayRequestsController {
     @Autowired
     private HolidayService holidayService;
 
-    @GetMapping("/holidayRequests/")
+    @GetMapping("/holidayRequests")
     public List<HolidayRequest> getHolidayRequests(){
         return holidayService.getAllHolidayRequests();
     }

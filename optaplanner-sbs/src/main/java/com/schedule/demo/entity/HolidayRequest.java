@@ -18,11 +18,11 @@ public class HolidayRequest {
     @Column(name = "employeeName")
     private String employeeName;
 
-    @Column(name = "fromDate")
-    private LocalDate fromDate;
+    @Column(name = "dateFrom")
+    private LocalDate dateFrom;
 
-    @Column(name = "toDate")
-    private LocalDate toDate;
+    @Column(name = "dateTo")
+    private LocalDate dateTo;
 
     @Column(name = "holidayRequestApproval")
     private boolean holidayRequestApproval;
@@ -45,20 +45,20 @@ public class HolidayRequest {
         this.employeeName = employeeName;
     }
 
-    public LocalDate getFromDate() {
-        return fromDate;
+    public LocalDate getDateFrom() {
+        return dateFrom;
     }
 
-    public void setFromDate(LocalDate fromDate) {
-        this.fromDate = fromDate;
+    public void setDateFrom(LocalDate fromDate) {
+        this.dateFrom = fromDate;
     }
 
-    public LocalDate getToDate() {
-        return toDate;
+    public LocalDate getDateTo() {
+        return dateTo;
     }
 
-    public void setToDate(LocalDate toDate) {
-        this.toDate = toDate;
+    public void setDateTo(LocalDate toDate) {
+        this.dateTo = toDate;
     }
 
     public boolean isHolidayRequestApproval() {

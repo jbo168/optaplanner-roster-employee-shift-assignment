@@ -24,31 +24,21 @@
                 <thead class="thead-admin">
                 <tr>
                     <th>Employee Name</th>
-                    <th>Current Shift Start Time</th>
-                    <th>Current Shift End Time</th>
-                    <th>Current Shift Day</th>
-                    <th>Change Shift Start Time</th>
-                    <th>Change Shift End Time</th>
-                    <th>Change Shift Day</th>
+                    <th>Date From</th>
+                    <th>Date To</th>
                     <th>Approval</th>
-                    <th colspan="2" class="text-center">Actions</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="shiftChange in shiftChanges">
-                    <td>{{ shiftChange.employeeName }}</td>
-                    <td>{{ shiftChange.currentShiftStartTime }}</td>
-                    <td>{{ shiftChange.currentShiftEndTime }}</td>
-                    <td>{{ shiftChange.currentShiftDay }}</td>
-                    <td>{{ shiftChange.shiftChangeStartTime }}</td>
-                    <td>{{ shiftChange.shiftChangeEndTime }}</td>
-                    <td>{{ shiftChange.shiftChangeDay }}</td>
-                    <td>{{ shiftChange.shiftChangeApproved }}</td>
+                <tr v-for="holiday in holidayRequests">
+                    <td>{{ holiday.employeeName }}</td>
+                    <td>{{ holiday.dateFrom }}</td>
+                    <td>{{ holiday.dateTo }}</td>
+                    <td>{{ holiday.shiftChangeApproved }}</td>
                     <td>
-                        <button class="btn btn-info" v-on:click="approveChangeRequest()">Approve</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-danger" v-on:click="rejectChangeRequest()">Reject</button>
+                        <button class="btn btn-info" v-on:click="approveHolidayRequest()">Approve</button>
+                        <button class="btn btn-danger" v-on:click="rejectHolidayRequest()">Reject</button>
                     </td>
                 </tr>
                 </tbody>
@@ -72,22 +62,22 @@
         el: '#main',
         data(){
             return {
-                shiftChanges: null
+                holidayRequests: null
             }
         },
         mounted() {
-            this.getShiftChanges();
+            this.getHolidayRequests();
         },
         methods: {
-            getShiftChanges: function () {
+            getHolidayRequests: function () {
                 axios
-                    .get("/api/shiftChanges")
-                    .then(response => (this.shiftChanges = response.data))
+                    .get("/api/holidayRequests")
+                    .then(response => (this.holidayRequests = response.data))
             },
-            approveChangeRequest: function () {
+            approveHolidayRequest: function () {
 
             },
-            rejectChangeRequest: function () {
+            rejectHolidayRequest: function () {
 
             }
         }

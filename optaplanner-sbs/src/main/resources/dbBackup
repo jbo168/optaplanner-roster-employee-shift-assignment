@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2020 at 06:29 PM
+-- Generation Time: Apr 22, 2020 at 02:21 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -79,22 +79,23 @@ CREATE TABLE `employee` (
   `employeeName` varchar(255) DEFAULT NULL,
   `skillLevel` varchar(10) DEFAULT NULL,
   `employeeType` varchar(255) DEFAULT NULL,
-  `associatedDepartment` varchar(255) DEFAULT NULL
+  `associatedDepartment` varchar(255) DEFAULT NULL,
+  `weeklyShiftAllowance` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`employeeId`, `employeeName`, `skillLevel`, `employeeType`, `associatedDepartment`) VALUES
-(3, 'John', '5', 'FULL_TIME', 'BAR'),
-(4, 'Elaine', '4', 'PART_TIME', 'BAR'),
-(5, 'Kieran', '2', 'FULL_TIME', 'BAR'),
-(6, 'Amy', '5', 'FULL_TIME', 'BAR'),
-(7, 'Steve', '3', 'FULL_TIME', 'BAR'),
-(9, 'Maeve', '4', 'FULL_TIME', 'BAR'),
-(10, 'Tommy', '1', 'FULL_TIME', 'BAR'),
-(11, 'James', '5', 'PART_TIME', 'BAR');
+INSERT INTO `employee` (`employeeId`, `employeeName`, `skillLevel`, `employeeType`, `associatedDepartment`, `weeklyShiftAllowance`) VALUES
+(3, 'John', '5', 'FULL_TIME', 'BAR', 5),
+(4, 'Elaine', '4', 'PART_TIME', 'BAR', 5),
+(5, 'Kieran', '2', 'FULL_TIME', 'BAR', 5),
+(6, 'Amy', '5', 'FULL_TIME', 'BAR', 5),
+(7, 'Steve', '3', 'FULL_TIME', 'BAR', 5),
+(9, 'Maeve', '4', 'FULL_TIME', 'BAR', 5),
+(10, 'Tommy', '1', 'FULL_TIME', 'BAR', 5),
+(11, 'James', '5', 'PART_TIME', 'BAR', 5);
 
 -- --------------------------------------------------------
 
@@ -109,6 +110,27 @@ CREATE TABLE `employee_availability` (
   `deptId` int(11) DEFAULT NULL,
   `employeeId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `holiday_request`
+--
+
+CREATE TABLE `holiday_request` (
+  `holidayRequestId` int(11) NOT NULL,
+  `employeeName` varchar(255) DEFAULT NULL,
+  `dateFrom` date DEFAULT NULL,
+  `dateTo` date DEFAULT NULL,
+  `holidayRequestApproval` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `holiday_request`
+--
+
+INSERT INTO `holiday_request` (`holidayRequestId`, `employeeName`, `dateFrom`, `dateTo`, `holidayRequestApproval`) VALUES
+(1, 'John', '2020-05-01', '2020-05-05', 0);
 
 -- --------------------------------------------------------
 
@@ -180,12 +202,22 @@ INSERT INTO `shift` (`shiftId`, `startTime`, `endTime`, `requiredSkillLevel`, `d
 
 CREATE TABLE `shift_change` (
   `shiftChangeId` int(11) NOT NULL,
-  `currentEmployeeName` varchar(255) DEFAULT NULL,
-  `currentShiftTime` time DEFAULT NULL,
-  `swapToShiftTime` time DEFAULT NULL,
+  `employeeName` varchar(255) DEFAULT NULL,
+  `currentShiftStartTime` time DEFAULT NULL,
+  `currentShiftEndTime` time DEFAULT NULL,
   `currentShiftDay` varchar(255) DEFAULT NULL,
-  `swapShiftDay` varchar(255) DEFAULT NULL
+  `shiftChangeStartTime` time DEFAULT NULL,
+  `shiftChangeEndTime` time DEFAULT NULL,
+  `shiftChangeDay` varchar(255) DEFAULT NULL,
+  `shiftChangeApproved` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `shift_change`
+--
+
+INSERT INTO `shift_change` (`shiftChangeId`, `employeeName`, `currentShiftStartTime`, `currentShiftEndTime`, `currentShiftDay`, `shiftChangeStartTime`, `shiftChangeEndTime`, `shiftChangeDay`, `shiftChangeApproved`) VALUES
+(1, 'John', '09:00:00', '18:00:00', 'Monday', '10:00:00', '17:00:00', 'Monday', 0);
 
 -- --------------------------------------------------------
 
@@ -198,7 +230,8 @@ CREATE TABLE `shift_swap` (
   `employeeRequestName` varchar(255) DEFAULT NULL,
   `employeeSwapName` varchar(255) DEFAULT NULL,
   `currentShiftId` int(11) DEFAULT NULL,
-  `shiftToSwapId` int(11) DEFAULT NULL
+  `shiftToSwapId` int(11) DEFAULT NULL,
+  `swapApproved` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -313,6 +346,12 @@ ALTER TABLE `employee_availability`
   ADD KEY `employeeavailability_employee__fk` (`employeeId`);
 
 --
+-- Indexes for table `holiday_request`
+--
+ALTER TABLE `holiday_request`
+  ADD PRIMARY KEY (`holidayRequestId`);
+
+--
 -- Indexes for table `manager`
 --
 ALTER TABLE `manager`
@@ -390,6 +429,12 @@ ALTER TABLE `employee`
   MODIFY `employeeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT for table `holiday_request`
+--
+ALTER TABLE `holiday_request`
+  MODIFY `holidayRequestId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `manager`
 --
 ALTER TABLE `manager`
@@ -400,6 +445,12 @@ ALTER TABLE `manager`
 --
 ALTER TABLE `shift`
   MODIFY `shiftId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `shift_change`
+--
+ALTER TABLE `shift_change`
+  MODIFY `shiftChangeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `shift_template`
