@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="mainStyles.css">
+
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+</head>
+<body style="background-color:lightgrey;">
+<div class="container">
+    <div class="row">
+        <h3>Register using the form below</h3>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header"></div>
+                <div id="registerFrmDiv" class="card-body">
+                    <br>
+                    <table>
+                        <form th:action="@{/register}" th:object="${user}" method="POST">
+                            <div class="form-inline">
+                                <label class="col-3 col-form-label">Firstname:</label>
+                                <input type="text" class="col-6 form-control" th:field="*{userFirstName}"/>
+                            </div>
+                            <br>
+                            <div class="form-inline">
+                                <label class="col-3 col-form-label">Lastname:</label>
+                                <input type="text" class="col-6 form-control" th:field="*{userLastName}"/>
+                            </div>
+                            <br>
+                            <div class="form-inline">
+                                <label class="col-3 col-form-label">Email:</label>
+                                <input type="email" class="col-6 form-control" th:field="*{userEmail}"/>
+                                <span th:if="${emailExists}" class="error" th:text="${emailExists}"></span>
+                            </div>
+                            <br>
+                            <div class="form-inline">
+                                <label class="col-3 col-form-label">Password:</label>
+                                <input type="password" class="col-6 form-control" th:field="*{userPassword}"/>
+                            </div>
+                            <br>
+                            <div class="form-inline">
+                                <label class="col-3 col-form-label">Username:</label>
+                                <input type="text" class="col-6 form-control" th:field="*{userName}"/>
+                            </div>
+                            <br>
+                            <div class="form-inline">
+                                <label class="col-3 col-form-label">Contact:</label>
+                                <input type="text" class="col-6 form-control" th:field="*{userPhone}"/>
+                            </div>
+                            <div th:if="${isRegisterValid != null}">
+                                <script>
+                                    alert("Validation Error:\nNo field can be empty\n" +
+                                        "Email must only consists of alphanumeric characters + @ _ .\n" +
+                                        "Contact must be in format: e.g. 0891232425");
+                                </script>
+                            </div>
+                            <br>
+                            <div class="form-inline text-center d-block">
+                                <button type="submit" class="col-2 btn btn-primary mr-4">Register</button>
+                            </div>
+                        </form>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="webjars/vue/vue.min.js"></script>
+<script src="webjars/axios/dist/axios.min.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

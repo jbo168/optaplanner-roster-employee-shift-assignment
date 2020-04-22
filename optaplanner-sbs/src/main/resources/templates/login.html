@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="mainStyles.css">
+
+
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head><body style="background-color:lightgrey;">
+<div id="content" class="container">
+    <div class="row">
+        <h3 class="ml-2">Welcome Back !</h3>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">Login using the form below</div>
+                <div id="loginFrmDiv" class="card-body">
+                    <br>
+                    <table>
+                        <form th:action="@{/login}" th:object="${user}" method="POST">
+                            <div class="form-inline">
+                                <label class = "col-3 col-form-label">Email: </label>
+                                <input type="text" th:field="*{userEmail}" class="col-6 form-control"/>
+                            </div>
+                            <br>
+                            <div class="form-inline mt-2">
+                                <label class="col-3 col-form-label">Password:</label>
+                                <input type="password" th:field="*{userPassword}" class="col-6 form-control"/>
+                            </div>
+                            <br>
+                            <div th:if="${isLoginValid != null}">
+                                <script>
+                                    alert("Username or Password is incorrect,\n" +
+                                        "Please try again");
+                                </script>
+                            </div>
+                            <div class="form-inline text-center d-block mt-2">
+                                <button id="loginSubmit" name="loginSubmit" type="submit" class="col-2 btn btn-primary mr-4">Login</button>
+                            </div>
+                        </form>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

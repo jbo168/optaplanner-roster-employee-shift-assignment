@@ -18,7 +18,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "userId")
-    private int userId;
+    private long userId;
 
     @Column(name = "userFirstName")
     private String userFirstName;
@@ -36,7 +36,7 @@ public class User implements UserDetails {
     private String userName;
 
     @Column(name = "userPhone")
-    private int userPhone;
+    private String userPhone;
 
     @Column(name = "accountType")
     @Enumerated(EnumType.STRING)
@@ -44,11 +44,11 @@ public class User implements UserDetails {
 
     public User(){}
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -92,11 +92,11 @@ public class User implements UserDetails {
         this.userName = userName;
     }
 
-    public int getUserPhone() {
+    public String getUserPhone() {
         return userPhone;
     }
 
-    public void setUserPhone(int userPhone) {
+    public void setUserPhone(String userPhone) {
         this.userPhone = userPhone;
     }
 
