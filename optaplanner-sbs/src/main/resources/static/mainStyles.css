@@ -1,6 +1,14 @@
 body{
 }
+.jumbo-image{
+     width: 400px;
+     height: 100px;
+}
 
+.jumbo-image img{
+     width: 100%;
+     height: auto;
+}
 
 .nav-item li.active {
 }

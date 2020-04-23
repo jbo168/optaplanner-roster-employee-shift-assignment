@@ -8,9 +8,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author: John Long
  * @create: 22-Apr-2020
@@ -24,7 +21,7 @@ public class UserSecurityService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Map<String, User> accountTypes = new HashMap<>();
+//        Map<String, User> accountTypes = new HashMap<>();
 
         User user = userService.findByEmail(username);
 
@@ -32,7 +29,7 @@ public class UserSecurityService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
 
-        accountTypes.put(user.getAccountType().toString(), user);
+//        accountTypes.put(user.getAccountType().toString(), user);
         return user;
     }
 }

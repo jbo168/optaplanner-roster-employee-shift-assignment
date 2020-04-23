@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean validLogin(String email, String password) {
         User user = userRepository.findByUserEmail(email);
-        if((email.equals(user.getUserEmail()) && password.equals(user.getPassword()))&& user != null) {
+        if((email.equals(user.getUserEmail()) && password.equals(user.getPassword()))) {
             return true;
         }
 
@@ -89,4 +89,5 @@ public class UserServiceImpl implements UserService {
         }
         return isValid;
     }
+
 }
