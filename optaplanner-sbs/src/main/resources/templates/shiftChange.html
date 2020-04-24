@@ -20,26 +20,52 @@
 
         <div class="container" id="main">
 
-            <table class="table table-striped table-bordered">
-                <thead class="thead-admin">
-                <tr>
-                    <th>Employee Id</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="shift in employeeShifts">
-                    <td>{{ shift.shiftId }}</td>
-                    <td>{{ shift.startDate }}</td>
-                    <td>{{ shift.endDate }}</td>
-                    <td>
-                        <button class="btn btn-danger" v-on:click="shiftChangeRequest(shift)">Request Shift Change</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <form v-on:submit.prevent="postShiftChangeRequest">
+                <div class="card mb-auto">
+                   <div class="card-header">Employee Shift Change Request Form</div>
+                    <div class="card card-body" id="employeeForm">
+                        <div class="form-group row">
+                            <label for="employeeName" class="col-sm-4 col-form-label">Employee Name</label>
+                            <input id="employeeName" class="form-control col-sm-8" placeholder="Employee Name" type="text"
+                                   v-model="employee_name"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="currentShiftStartTime" class="col-sm-4 col-form-label">Current Shift Start Time</label>
+                            <input id="currentShiftStartTime" class="form-control col-sm-8" placeholder="Current Shift Start Time" type="text"
+                                   v-model="current_shift_start_time"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="currentShiftEndTime" class="col-sm-4 col-form-label">Current Shift End Time</label>
+                            <input id="currentShiftEndTime" class="form-control col-sm-8" placeholder="Current Shift End Time" type="text"
+                                   v-model="current_shift_end_time"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="currentShiftDay" class="col-sm-4 col-form-label">Current Shift Day</label>
+                            <input id="currentShiftDay" class="form-control col-sm-8" placeholder="Current Shift Day" type="text"
+                                   v-model="current_shift_day"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="shiftChangeStartTime" class="col-sm-4 col-form-label">Shift Change Start Time</label>
+                            <input id="shiftChangeStartTime" class="form-control col-sm-8" placeholder="Shift Change Start Time" type="text"
+                                   v-model="shift_change_start_time"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="shiftChangeEndTime" class="col-sm-4 col-form-label">Shift Change End Time</label>
+                            <input id="shiftChangeEndTime" class="form-control col-sm-8" placeholder="Shift Change End Time" type="text"
+                                   v-model="shift_change_end_time"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="shiftChangeDay" class="col-sm-4 col-form-label">Shift Change Day</label>
+                            <input id="shiftChangeDay" class="form-control col-sm-8" placeholder="Shift Change Day" type="text"
+                                   v-model="shift_change_day"/>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col col-sm-4"></div>
+                            <input class="btn btn-primary col col-sm-8" type="submit" value="Submit Request">
+                        </div>
+                    </div>
+                </div>
+            </form>
 
         </div>
     </div>
@@ -59,30 +85,20 @@
         el: '#main',
         data() {
             return {
-                employeeShifts: null,
-                startDate: null,
-                endDate: null,
-                shiftId: null
+                employee_name: null,
+                current_shift_start_time: null,
+                current_shift_end_time: null,
+                current_shift_day: null,
+                shift_change_start_time: null,
+                shift_change_end_time: null,
+                shift_change_day: null
             }
         },
         mounted() {
-            this.getShiftsForEmployee();
-            this.getDepartments();
+
         },
         methods: {
-            getShiftsForEmployee: function () {
-                // axios
-                //     .get("/api/shiftTemplate/11/20200413/20200417")
-                //     .then(response => (this.employeeShifts = response.data))
-                axios
-                    .get("/api/shiftTemplate/11")
-                    .then(response => (this.employeeShifts = response.data))
-            },
-            getDepartments: function () {
-                axios
-                    .get("/api/departments")
-                    .then(response => (this.departments = response.data))
-            }
+
         }
     })
 </script>

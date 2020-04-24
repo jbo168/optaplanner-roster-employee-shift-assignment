@@ -19,9 +19,32 @@
         <br><br>
 
         <div class="container" id="main">
-
-            <p>testing</p>
-
+            <form v-on:submit.prevent="postShiftChangeRequest">
+                <div class="card mb-auto">
+                    <div class="card-header">Employee Holiday Request Form</div>
+                    <div class="card card-body" id="employeeForm">
+                        <div class="form-group row">
+                            <label for="employeeName" class="col-sm-4 col-form-label">Employee Name</label>
+                            <input id="employeeName" class="form-control col-sm-8" placeholder="Employee Name" type="text"
+                                   v-model="employee_name"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="dateFrom" class="col-sm-4 col-form-label">Date From</label>
+                            <input id="dateFrom" class="form-control col-sm-8" placeholder="Date To" type="text"
+                                   v-model="date_from"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="dateTo" class="col-sm-4 col-form-label">Date to</label>
+                            <input id="dateTo" class="form-control col-sm-8" placeholder="Date To" type="text"
+                                   v-model="date_to"/>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col col-sm-4"></div>
+                            <input class="btn btn-primary col col-sm-8" type="submit" value="Submit Request">
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <div th:replace="fragments/footer :: footer"></div>
@@ -36,6 +59,22 @@
 
 
 <script>
+    var app = new Vue({
+        el: '#main',
+        data() {
+            return {
+                employee_name: null,
+                date_from: null,
+                date_to: null
+            }
+        },
+        mounted() {
+
+        },
+        methods: {
+
+        }
+    })
 </script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

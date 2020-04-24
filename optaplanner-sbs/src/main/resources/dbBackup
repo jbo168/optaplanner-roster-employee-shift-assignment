@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2020 at 02:21 AM
+-- Generation Time: Apr 24, 2020 at 02:12 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -314,6 +314,32 @@ CREATE TABLE `spot_required_skill_set` (
   `spotId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `userId` int(11) NOT NULL,
+  `userFirstName` varchar(255) DEFAULT NULL,
+  `userLastName` varchar(255) DEFAULT NULL,
+  `userEmail` varchar(255) DEFAULT NULL,
+  `userPassword` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `userPhone` varchar(10) DEFAULT NULL,
+  `accountType` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`userId`, `userFirstName`, `userLastName`, `userEmail`, `userPassword`, `username`, `userPhone`, `accountType`) VALUES
+(1, 'testF', 'testL', 'test@hotmail.com', '1234', 'tester', '0879791410', 'EMPLOYEE'),
+(2, 'Jim', 'Jones', 'jim@gmail.com', '123', 'jim', '0830569315', 'EMPLOYEE'),
+(3, 'test', 'test', 'test@gmail.com', '12345', 'tester', '0985672345', NULL);
+
 --
 -- Indexes for dumped tables
 --
@@ -407,6 +433,12 @@ ALTER TABLE `spot_required_skill_set`
   ADD KEY `spotrequiredskillset_spot_fk` (`spotId`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`userId`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -475,6 +507,12 @@ ALTER TABLE `spot`
 --
 ALTER TABLE `spot_required_skill_set`
   MODIFY `spotRequiredSkillSetId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
