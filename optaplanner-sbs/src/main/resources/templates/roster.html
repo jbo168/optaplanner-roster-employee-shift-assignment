@@ -310,7 +310,6 @@
             insertSolvedDataToTable: function (data) {
                 let tbody = document.getElementById('schedule-body');
                 let schData = this.solvedScheduleBody;
-                // let objTestData = schData.shifts[0].startTime;
 
                 /*  these for loops traverse the schedule table
                     adding shifts where an employee and day match the solved response
@@ -318,15 +317,15 @@
                 for (let e = 0; e < this.employees.length; e++) {
                     let row = document.createElement("tr");
                     let eCell = document.createElement("td");
-                    let eCellText = document.createTextNode(this.employees[e].name);
+                    let eCellText = document.createTextNode(this.employees[e].employeeName);
                     eCell.appendChild(eCellText);
                     row.appendChild(eCell);
                     for (let d = 0; d < this.daysOfWeek.length; d++) {
                         for (let s = 0; s < schData.shifts.length; s++) {
-                            if (schData.shifts[s].day === this.daysOfWeek[d] && schData.shifts[s].employee.name === this.employees[e].name) {
-                                // let data =  "" + obj.shifts.[e].startTime + "-" + obj.shifts.[e].startTime;
+                            if (schData.shifts[s].day === this.daysOfWeek[d] && schData.shifts[s].employee.employeeName === this.employees[e].employeeName) {
+                                let data = schData.shifts[s].startTime + "-" + schData.shifts[s].endTime;
                                 let cell = document.createElement("td");
-                                let cellText = document.createTextNode("data");
+                                let cellText = document.createTextNode(data);
                                 cell.appendChild(cellText);
                                 row.appendChild(cell);
                             }
