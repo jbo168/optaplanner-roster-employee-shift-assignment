@@ -1,5 +1,7 @@
 package com.schedule.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -19,9 +21,11 @@ public class HolidayRequest {
     private String employeeName;
 
     @Column(name = "dateFrom")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateFrom;
 
     @Column(name = "dateTo")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateTo;
 
     @Column(name = "holidayRequestApproval")

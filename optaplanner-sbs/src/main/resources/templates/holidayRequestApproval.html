@@ -23,6 +23,7 @@
             <table class="table table-striped table-bordered">
                 <thead class="thead-admin">
                 <tr>
+                    <th>Request Id</th>
                     <th>Employee Name</th>
                     <th>Date From</th>
                     <th>Date To</th>
@@ -31,16 +32,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="holiday in holidayRequests">
-                    <td>{{ holiday.employeeName }}</td>
-                    <td>{{ holiday.dateFrom }}</td>
-                    <td>{{ holiday.dateTo }}</td>
-                    <td>{{ holiday.holidayRequestApproval }}</td>
+                <tr v-for="request in holidayRequests">
+                    <td>{{ request.holidayRequestId }}</td>
+                    <td>{{ request.employeeName }}</td>
+                    <td>{{ request.dateFrom }}</td>
+                    <td>{{ request.dateTo }}</td>
+                    <td>{{ request.holidayRequestApproval }}</td>
                     <td class="text-center">
-                        <button class="btn btn-info" v-on:click="approveHolidayRequest()">Approve</button>
+                        <button class="btn btn-info" v-on:click="approveHolidayRequest(request)">Approve</button>
                     </td>
                     <td class="text-center">
-                        <button class="btn btn-danger" v-on:click="rejectHolidayRequest()">Reject</button>
+                        <button class="btn btn-danger" v-on:click="rejectHolidayRequest(request)">Reject</button>
                     </td>
                 </tr>
                 </tbody>
@@ -76,11 +78,15 @@
                     .get("/api/holidayRequests")
                     .then(response => (this.holidayRequests = response.data))
             },
-            approveHolidayRequest: function () {
-
+            approveHolidayRequest: function (request) {
+                axios
+                    .post("/api/holidayRequest/" + request.holidayRequestId + "/" + true)
+                    .then(response => (this.getHolidayRequests))
             },
-            rejectHolidayRequest: function () {
-
+            rejectHolidayRequest: function (request) {
+                axios
+                    .post("/api/holidayRequest/" + request.holidayRequestId + "/" + false)
+                    .then(response => (this.getHolidayRequests))
             }
         }
     })

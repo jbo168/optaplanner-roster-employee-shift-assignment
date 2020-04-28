@@ -3,9 +3,7 @@ package com.schedule.demo.web.api;
 import com.schedule.demo.entity.HolidayRequest;
 import com.schedule.demo.service.HolidayService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,7 +18,21 @@ public class HolidayRequestsController {
     private HolidayService holidayService;
 
     @GetMapping("/holidayRequests")
-    public List<HolidayRequest> getHolidayRequests(){
+    public List<HolidayRequest> getHolidayRequests() {
         return holidayService.getAllHolidayRequests();
+    }
+
+    @PostMapping("/holidayRequest")
+    public HolidayRequest createNewHolidayRequest(@RequestBody HolidayRequest holidayRequest) {
+        return holidayService.newHolidayRequest(holidayRequest);
+    }
+
+    @PostMapping("/holidayRequest/{requestId}/{approval}")
+    public void approveOrDeclineHolidayRequest(@PathVariable Long requestId, @PathVariable boolean approval) {
+        if (approval) {
+            holidayService.approveHolidayRequest(requestId);
+        }else{
+            holidayService.declineHolidayRequest(requestId);
+        }
     }
 }

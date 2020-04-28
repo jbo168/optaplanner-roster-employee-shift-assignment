@@ -19,4 +19,23 @@ public class HolidayService {
     public List<HolidayRequest> getAllHolidayRequests(){
         return holidayRequestRepository.findAll();
     }
+
+    public HolidayRequest newHolidayRequest(HolidayRequest holidayRequest) {
+        return holidayRequestRepository.save(holidayRequest);
+    }
+
+    public void approveHolidayRequest(Long requestId) {
+//        HolidayRequest holidayRequest  = holidayRequestRepository.findById(requestId)
+//                .orElseThrow(() -> new EntityNotFoundException("No entity found with id " + requestId));
+
+        HolidayRequest holidayRequest = holidayRequestRepository.getOne(requestId);
+        holidayRequest.setHolidayRequestApproval(true);
+        holidayRequestRepository.save(holidayRequest);
+    }
+
+    public void declineHolidayRequest(Long requestId) {
+        HolidayRequest holidayRequest = holidayRequestRepository.getOne(requestId);
+        holidayRequest.setHolidayRequestApproval(false);
+        holidayRequestRepository.save(holidayRequest);
+    }
 }
