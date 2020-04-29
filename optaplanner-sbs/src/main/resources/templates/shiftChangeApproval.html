@@ -29,7 +29,6 @@
                     <th>Current Shift Day</th>
                     <th>Change Shift Start Time</th>
                     <th>Change Shift End Time</th>
-                    <th>Change Shift Day</th>
                     <th>Approval</th>
                     <th colspan="2" class="text-center">Actions</th>
                 </tr>
@@ -42,7 +41,6 @@
                     <td>{{ request.currentShiftDay }}</td>
                     <td>{{ request.shiftChangeStartTime }}</td>
                     <td>{{ request.shiftChangeEndTime }}</td>
-                    <td>{{ request.shiftChangeDay }}</td>
                     <td>{{ request.shiftChangeApproved }}</td>
                     <td>
                         <button class="btn btn-info" v-on:click="approveChangeRequest(request)">Approve</button>

@@ -33,9 +33,6 @@ public class ShiftChangeRequest {
     @Column(name = "shiftChangeEndTime")
     private LocalTime shiftChangeEndTime;
 
-    @Column(name = "shiftChangeDay")
-    private String shiftChangeDay;
-
     @Column(name = "shiftChangeApproved")
     private boolean shiftChangeApproved;
 
@@ -96,14 +93,6 @@ public class ShiftChangeRequest {
 
     public void setShiftChangeEndTime(LocalTime shiftSwapEndTime) {
         this.shiftChangeEndTime = shiftSwapEndTime;
-    }
-
-    public String getShiftChangeDay() {
-        return shiftChangeDay;
-    }
-
-    public void setShiftChangeDay(String swapShiftDay) {
-        this.shiftChangeDay = swapShiftDay;
     }
 
     public boolean isShiftChangeApproved() {

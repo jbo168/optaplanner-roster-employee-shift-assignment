@@ -41,8 +41,12 @@
                         </div>
                         <div class="form-group row">
                             <label for="currentShiftDay" class="col-sm-4 col-form-label">Current Shift Day</label>
-                            <input id="currentShiftDay" class="form-control col-sm-8" placeholder="Current Shift Day" type="text"
-                                   v-model="current_shift_day"/>
+                            <select class="form-control col-sm-8" id="currentShiftDay" placeholder="Current Shift Day" v-model="current_shift_day">
+                                <option disabled value="">Please select a Day</option>
+                                <option  v-for="days in daysOfWeek">
+                                    {{ days }}
+                                </option>
+                            </select>
                         </div>
                         <div class="form-group row">
                             <label for="shiftChangeStartTime" class="col-sm-4 col-form-label">Shift Change Start Time</label>
@@ -53,11 +57,6 @@
                             <label for="shiftChangeEndTime" class="col-sm-4 col-form-label">Shift Change End Time</label>
                             <input id="shiftChangeEndTime" class="form-control col-sm-8" placeholder="Shift Change End Time" type="text"
                                    v-model="shift_change_end_time"/>
-                        </div>
-                        <div class="form-group row">
-                            <label for="shiftChangeDay" class="col-sm-4 col-form-label">Shift Change Day</label>
-                            <input id="shiftChangeDay" class="form-control col-sm-8" placeholder="Shift Change Day" type="text"
-                                   v-model="shift_change_day"/>
                         </div>
                         <div class="form-group row">
                             <div class="col col-sm-4"></div>
@@ -85,20 +84,36 @@
         el: '#main',
         data() {
             return {
+                daysOfWeek: null,
                 employee_name: null,
                 current_shift_start_time: null,
                 current_shift_end_time: null,
                 current_shift_day: null,
                 shift_change_start_time: null,
                 shift_change_end_time: null,
-                shift_change_day: null
             }
         },
         mounted() {
-
+            this.getDaysOfWeek();
         },
         methods: {
-
+            getDaysOfWeek: function(){
+                axios
+                    .get("/api/daysOfWeek")
+                    .then(response => (this.daysOfWeek = response.data));
+            },
+            postShiftChangeRequest: function (event) {
+                axios
+                    .post("/api/shiftChangeRequest", {
+                        "employeeName": this.employee_name,
+                        "currentShiftStartTime": this.current_shift_start_time,
+                        "currentShiftEndTime": this.current_shift_end_time,
+                        "currentShiftDay": this.current_shift_day,
+                        "shiftChangeStartTime": this.shift_change_start_time,
+                        "shiftChangeEndTime": this.shift_change_end_time,
+                        "approval": false
+                    })
+            }
         }
     })
 </script>

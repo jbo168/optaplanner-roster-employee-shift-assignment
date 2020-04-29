@@ -35,6 +35,11 @@ public class ShiftChangesController {
         return shiftService.getAllShiftChangeRequests();
     }
 
+    @PostMapping("/shiftChangeRequest")
+    public ShiftChangeRequest createNewShiftChangeRequest(@RequestBody ShiftChangeRequest shiftChangeRequest){
+        return shiftService.newShiftChangeRequest(shiftChangeRequest);
+    }
+
     @PostMapping("/shiftChangeRequest/{requestId}/{approval}")
     public String approveOrDeclineShiftChangeRequest(@PathVariable Long requestId, @PathVariable boolean approval) {
         if (approval) {

@@ -50,4 +50,8 @@ public class ShiftService {
         shiftChangeRequest.setShiftChangeApproved(false);
         shiftChangeRepository.save(shiftChangeRequest);
     }
+
+    public ShiftChangeRequest newShiftChangeRequest(ShiftChangeRequest shiftChangeRequest) {
+        return shiftChangeRepository.save(shiftChangeRequest);
+    }
 }
