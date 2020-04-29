@@ -62,4 +62,20 @@ public class ShiftService {
     public ShiftSwap newShiftSwapRequest(ShiftSwap shiftSwap) {
         return shiftSwapRepository.save(shiftSwap);
     }
+
+    public List<ShiftSwap> getAllShiftSwapRequests() {
+        return shiftSwapRepository.findAll();
+    }
+
+    public void approveShiftSwapRequest(Long requestId) {
+        ShiftSwap shiftSwap = shiftSwapRepository.getOne(requestId);
+        shiftSwap.setSwapApproved(true);
+        shiftSwapRepository.save(shiftSwap);
+    }
+
+    public void declineShiftSwapRequest(Long requestId) {
+        ShiftSwap shiftSwap = shiftSwapRepository.getOne(requestId);
+        shiftSwap.setSwapApproved(false);
+        shiftSwapRepository.save(shiftSwap);
+    }
 }

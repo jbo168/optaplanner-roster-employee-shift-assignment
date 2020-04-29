@@ -20,7 +20,41 @@
 
         <div class="container" id="main">
 
-            <p>testing</p>
+            <table class="table table-striped table-bordered">
+                <thead class="thead-admin">
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Current Shift Start Time</th>
+                    <th>Current Shift End Time</th>
+                    <th>Current Shift Day</th>
+                    <th>Employee Swap Name</th>
+                    <th>Shift To Swap Start Time</th>
+                    <th>Shift To Swap End Time</th>
+                    <th>Shift Swap Day</th>
+                    <th>Approval</th>
+                    <th colspan="2" class="text-center">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="request in shiftSwaps">
+                    <td>{{ request.employeeRequestName }}</td>
+                    <td>{{ request.currentShiftStartTime }}</td>
+                    <td>{{ request.currentShiftEndTime }}</td>
+                    <td>{{ request.currentShiftDay }}</td>
+                    <td>{{ request.employeeSwapName }}</td>
+                    <td>{{ request.shiftToSwapStartTime }}</td>
+                    <td>{{ request.shiftToSwapEndTime }}</td>
+                    <td>{{ request.shiftSwapDay }}</td>
+                    <td>{{ request.swapApproved }}</td>
+                    <td>
+                        <button class="btn btn-info" v-on:click="approveSwapRequest(request)">Approve</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" v-on:click="rejectSwapRequest(request)">Reject</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 
         </div>
     </div>
@@ -36,6 +70,34 @@
 
 
 <script>
+    var app = new Vue({
+        el: '#main',
+        data(){
+            return {
+                shiftSwaps: null
+            }
+        },
+        mounted() {
+            this.getShiftSwaps();
+        },
+        methods: {
+            getShiftSwaps: function () {
+                axios
+                    .get("/api/shiftSwaps")
+                    .then(response => (this.shiftSwaps = response.data))
+            },
+            approveSwapRequest: function (request) {
+                axios
+                    .post("/api/shiftSwapRequest/" + request.shiftSwapId + "/" + true)
+                    .then(response => {this.getShiftSwaps();})
+            },
+            rejectSwapRequest: function (request) {
+                axios
+                    .post("/api/shiftSwapRequest/" + request.shiftSwapId + "/" + false)
+                    .then(response => {this.getShiftSwaps();})
+            }
+        }
+    })
 </script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

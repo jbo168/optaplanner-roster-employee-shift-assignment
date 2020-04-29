@@ -131,6 +131,17 @@
                         "shiftSwapDay": this.shift_swap_day,
                         "swapApproved": false
                     })
+                .   then(this.resetForm());
+            },
+            resetForm: function() {
+                    this.employee_request_name = '',
+                    this.current_shift_start_time = '',
+                    this.current_shift_end_time = '',
+                    this.current_shift_day = '',
+                    this.employee_swap_name = '',
+                    this.shift_to_swap_start_time = '',
+                    this.shift_to_swap_end_time = '',
+                    this.shift_swap_day = ''
             }
         }
     })
