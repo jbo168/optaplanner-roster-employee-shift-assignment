@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2020 at 02:12 AM
+-- Generation Time: Apr 29, 2020 at 07:20 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -130,7 +130,9 @@ CREATE TABLE `holiday_request` (
 --
 
 INSERT INTO `holiday_request` (`holidayRequestId`, `employeeName`, `dateFrom`, `dateTo`, `holidayRequestApproval`) VALUES
-(1, 'John', '2020-05-01', '2020-05-05', 0);
+(1, 'John', '2020-05-01', '2020-05-05', 0),
+(2, 'testerName', '2020-05-10', '2020-05-15', 0),
+(3, 'testerName2', '2020-06-10', '2020-07-11', 0);
 
 -- --------------------------------------------------------
 
@@ -197,10 +199,10 @@ INSERT INTO `shift` (`shiftId`, `startTime`, `endTime`, `requiredSkillLevel`, `d
 -- --------------------------------------------------------
 
 --
--- Table structure for table `shift_change`
+-- Table structure for table `shift_change_request`
 --
 
-CREATE TABLE `shift_change` (
+CREATE TABLE `shift_change_request` (
   `shiftChangeId` int(11) NOT NULL,
   `employeeName` varchar(255) DEFAULT NULL,
   `currentShiftStartTime` time DEFAULT NULL,
@@ -208,29 +210,31 @@ CREATE TABLE `shift_change` (
   `currentShiftDay` varchar(255) DEFAULT NULL,
   `shiftChangeStartTime` time DEFAULT NULL,
   `shiftChangeEndTime` time DEFAULT NULL,
-  `shiftChangeDay` varchar(255) DEFAULT NULL,
   `shiftChangeApproved` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `shift_change`
+-- Dumping data for table `shift_change_request`
 --
 
-INSERT INTO `shift_change` (`shiftChangeId`, `employeeName`, `currentShiftStartTime`, `currentShiftEndTime`, `currentShiftDay`, `shiftChangeStartTime`, `shiftChangeEndTime`, `shiftChangeDay`, `shiftChangeApproved`) VALUES
-(1, 'John', '09:00:00', '18:00:00', 'Monday', '10:00:00', '17:00:00', 'Monday', 0);
+INSERT INTO `shift_change_request` (`shiftChangeId`, `employeeName`, `currentShiftStartTime`, `currentShiftEndTime`, `currentShiftDay`, `shiftChangeStartTime`, `shiftChangeEndTime`, `shiftChangeApproved`) VALUES
+(1, 'John', '09:00:00', '18:00:00', 'Monday', '10:00:00', '17:00:00', 0),
+(2, 'jim', '09:00:00', '18:00:00', 'THURSDAY', '10:00:00', '17:00:00', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `shift_swap`
+-- Table structure for table `shift_swap_request`
 --
 
-CREATE TABLE `shift_swap` (
+CREATE TABLE `shift_swap_request` (
   `shiftSwapId` int(11) NOT NULL,
   `employeeRequestName` varchar(255) DEFAULT NULL,
+  `currentShiftStartTime` varchar(255) DEFAULT NULL,
+  `currentShiftEndTime` time DEFAULT NULL,
   `employeeSwapName` varchar(255) DEFAULT NULL,
-  `currentShiftId` int(11) DEFAULT NULL,
-  `shiftToSwapId` int(11) DEFAULT NULL,
+  `shiftToSwapEndTime` time DEFAULT NULL,
+  `shiftToSwapStartTime` time DEFAULT NULL,
   `swapApproved` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -390,15 +394,15 @@ ALTER TABLE `shift`
   ADD PRIMARY KEY (`shiftId`);
 
 --
--- Indexes for table `shift_change`
+-- Indexes for table `shift_change_request`
 --
-ALTER TABLE `shift_change`
+ALTER TABLE `shift_change_request`
   ADD PRIMARY KEY (`shiftChangeId`);
 
 --
--- Indexes for table `shift_swap`
+-- Indexes for table `shift_swap_request`
 --
-ALTER TABLE `shift_swap`
+ALTER TABLE `shift_swap_request`
   ADD PRIMARY KEY (`shiftSwapId`);
 
 --
@@ -464,7 +468,7 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT for table `holiday_request`
 --
 ALTER TABLE `holiday_request`
-  MODIFY `holidayRequestId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `holidayRequestId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `manager`
@@ -479,10 +483,10 @@ ALTER TABLE `shift`
   MODIFY `shiftId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- AUTO_INCREMENT for table `shift_change`
+-- AUTO_INCREMENT for table `shift_change_request`
 --
-ALTER TABLE `shift_change`
-  MODIFY `shiftChangeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `shift_change_request`
+  MODIFY `shiftChangeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `shift_template`
