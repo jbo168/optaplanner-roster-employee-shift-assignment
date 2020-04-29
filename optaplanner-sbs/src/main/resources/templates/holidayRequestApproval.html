@@ -81,12 +81,12 @@
             approveHolidayRequest: function (request) {
                 axios
                     .post("/api/holidayRequest/" + request.holidayRequestId + "/" + true)
-                    .then(response => (this.getHolidayRequests))
+                    .then(response => {this.getHolidayRequests();})
             },
             rejectHolidayRequest: function (request) {
                 axios
                     .post("/api/holidayRequest/" + request.holidayRequestId + "/" + false)
-                    .then(response => (this.getHolidayRequests))
+                    .then(response => {this.getHolidayRequests();})
             }
         }
     })

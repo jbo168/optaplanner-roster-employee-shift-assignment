@@ -28,11 +28,14 @@ public class HolidayRequestsController {
     }
 
     @PostMapping("/holidayRequest/{requestId}/{approval}")
-    public void approveOrDeclineHolidayRequest(@PathVariable Long requestId, @PathVariable boolean approval) {
+    public String approveOrDeclineHolidayRequest(@PathVariable Long requestId, @PathVariable boolean approval) {
         if (approval) {
             holidayService.approveHolidayRequest(requestId);
+            return "approved";
         }else{
             holidayService.declineHolidayRequest(requestId);
+            return "declined";
         }
+
     }
 }
