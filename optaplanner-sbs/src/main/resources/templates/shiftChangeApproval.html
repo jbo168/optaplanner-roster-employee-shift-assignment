@@ -35,20 +35,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="shiftChange in shiftChanges">
-                    <td>{{ shiftChange.employeeName }}</td>
-                    <td>{{ shiftChange.currentShiftStartTime }}</td>
-                    <td>{{ shiftChange.currentShiftEndTime }}</td>
-                    <td>{{ shiftChange.currentShiftDay }}</td>
-                    <td>{{ shiftChange.shiftChangeStartTime }}</td>
-                    <td>{{ shiftChange.shiftChangeEndTime }}</td>
-                    <td>{{ shiftChange.shiftChangeDay }}</td>
-                    <td>{{ shiftChange.shiftChangeApproved }}</td>
+                <tr v-for="request in shiftChanges">
+                    <td>{{ request.employeeName }}</td>
+                    <td>{{ request.currentShiftStartTime }}</td>
+                    <td>{{ request.currentShiftEndTime }}</td>
+                    <td>{{ request.currentShiftDay }}</td>
+                    <td>{{ request.shiftChangeStartTime }}</td>
+                    <td>{{ request.shiftChangeEndTime }}</td>
+                    <td>{{ request.shiftChangeDay }}</td>
+                    <td>{{ request.shiftChangeApproved }}</td>
                     <td>
-                        <button class="btn btn-info" v-on:click="approveChangeRequest()">Approve</button>
+                        <button class="btn btn-info" v-on:click="approveChangeRequest(request)">Approve</button>
                     </td>
                     <td>
-                        <button class="btn btn-danger" v-on:click="rejectChangeRequest()">Reject</button>
+                        <button class="btn btn-danger" v-on:click="rejectChangeRequest(request)">Reject</button>
                     </td>
                 </tr>
                 </tbody>
@@ -84,11 +84,15 @@
                     .get("/api/shiftChanges")
                     .then(response => (this.shiftChanges = response.data))
             },
-            approveChangeRequest: function () {
-
+            approveChangeRequest: function (request) {
+                axios
+                    .post("/api/shiftChangeRequest/" + request.shiftChangeId + "/" + true)
+                    .then(response => {this.getShiftChanges();})
             },
-            rejectChangeRequest: function () {
-
+            rejectChangeRequest: function (request) {
+                axios
+                    .post("/api/shiftChangeRequest/" + request.shiftChangeId + "/" + false)
+                    .then(response => {this.getShiftChanges();})
             }
         }
     })

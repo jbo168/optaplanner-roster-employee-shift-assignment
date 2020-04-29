@@ -8,8 +8,8 @@ import java.time.LocalTime;
  * @create: 21-Apr-2020
  **/
 @Entity
-@Table(name = "shift_change")
-public class ShiftChange {
+@Table(name = "shift_change_request")
+public class ShiftChangeRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "shiftChangeId")
@@ -40,7 +40,7 @@ public class ShiftChange {
     private boolean shiftChangeApproved;
 
 
-    public ShiftChange(){}
+    public ShiftChangeRequest(){}
 
     public Long getShiftChangeId() {
         return shiftChangeId;

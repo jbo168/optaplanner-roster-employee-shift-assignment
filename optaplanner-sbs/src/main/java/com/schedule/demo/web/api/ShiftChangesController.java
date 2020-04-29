@@ -1,6 +1,6 @@
 package com.schedule.demo.web.api;
 
-import com.schedule.demo.entity.ShiftChange;
+import com.schedule.demo.entity.ShiftChangeRequest;
 import com.schedule.demo.entity.ShiftTemplate;
 import com.schedule.demo.repository.ShiftTemplateRepository;
 import com.schedule.demo.service.ShiftService;
@@ -31,12 +31,19 @@ public class ShiftChangesController {
     }
 
     @GetMapping("/shiftChanges")
-    public List<ShiftChange> shiftChangeRequestList(){
+    public List<ShiftChangeRequest> shiftChangeRequestList(){
         return shiftService.getAllShiftChangeRequests();
     }
 
-    @PostMapping("/shiftChange/{approval}")
-    public boolean approveShiftChangeRequest(@PathVariable String approval){
-        return true;
+    @PostMapping("/shiftChangeRequest/{requestId}/{approval}")
+    public String approveOrDeclineShiftChangeRequest(@PathVariable Long requestId, @PathVariable boolean approval) {
+        if (approval) {
+            shiftService.approveShiftChangeRequest(requestId);
+            return "approved";
+        }else{
+            shiftService.declineShiftChangeRequest(requestId);
+            return "declined";
+        }
+
     }
 }
