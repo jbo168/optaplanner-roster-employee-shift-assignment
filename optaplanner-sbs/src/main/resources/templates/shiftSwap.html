@@ -20,6 +20,65 @@
 
         <div class="container" id="main">
 
+            <form v-on:submit.prevent="postShiftChangeRequest">
+                <div class="card mb-auto">
+                    <div class="card-header">Employee Shift Change Request Form</div>
+                    <div class="card card-body" id="employeeForm">
+                        <div class="form-group row">
+                            <label for="employeeRequestName" class="col-sm-4 col-form-label">Employee Name</label>
+                            <input id="employeeRequestName" class="form-control col-sm-8" placeholder="Employee Name" type="text"
+                                   v-model="employee_request_name"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="currentShiftStartTime" class="col-sm-4 col-form-label">Current Shift Start Time</label>
+                            <input id="currentShiftStartTime" class="form-control col-sm-8" placeholder="Current Shift Start Time" type="text"
+                                   v-model="current_shift_start_time"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="currentShiftEndTime" class="col-sm-4 col-form-label">Current Shift End Time</label>
+                            <input id="currentShiftEndTime" class="form-control col-sm-8" placeholder="Current Shift End Time" type="text"
+                                   v-model="current_shift_end_time"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="currentShiftDay" class="col-sm-4 col-form-label">Current Shift Day</label>
+                            <select class="form-control col-sm-8" id="currentShiftDay" placeholder="Current Shift Day" v-model="current_shift_day">
+                                <option disabled value="">Please select a Day</option>
+                                <option  v-for="days in daysOfWeek">
+                                    {{ days }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group row">
+                            <label for="employeeSwapName" class="col-sm-4 col-form-label">Employee Swap Name</label>
+                            <input id="employeeSwapName" class="form-control col-sm-8" placeholder="Employee Swap Name" type="text"
+                                   v-model="employee_swap_name"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="shiftToSwapStartTime" class="col-sm-4 col-form-label">Shift To Swap Start Time</label>
+                            <input id="shiftToSwapStartTime" class="form-control col-sm-8" placeholder="Shift To Swap Start Time" type="text"
+                                   v-model="shift_to_swap_start_time"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="shiftToSwapEndTime" class="col-sm-4 col-form-label">Shift To Swap End Time</label>
+                            <input id="shiftToSwapEndTime" class="form-control col-sm-8" placeholder="Shift To Swap End Time" type="text"
+                                   v-model="shift_to_swap_end_time"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="shiftSwapDay" class="col-sm-4 col-form-label">Shift Swap Day</label>
+                            <select class="form-control col-sm-8" id="shiftSwapDay" placeholder="Shift Swap Day" v-model="shift_swap_day">
+                                <option disabled value="">Please select a Day</option>
+                                <option  v-for="days in daysOfWeek">
+                                    {{ days }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col col-sm-4"></div>
+                            <input class="btn btn-primary col col-sm-8" type="submit" value="Submit Request">
+                        </div>
+                    </div>
+                </div>
+            </form>
 
         </div>
     </div>
@@ -35,6 +94,46 @@
 
 
 <script>
+    var app = new Vue({
+        el: '#main',
+        data() {
+            return {
+                daysOfWeek: null,
+                employee_request_name: null,
+                current_shift_start_time: null,
+                current_shift_end_time: null,
+                current_shift_day: null,
+                employee_swap_name: null,
+                shift_to_swap_start_time: null,
+                shift_to_swap_end_time: null,
+                shift_swap_day: null,
+            }
+        },
+        mounted() {
+            this.getDaysOfWeek();
+        },
+        methods: {
+            getDaysOfWeek: function(){
+                axios
+                    .get("/api/daysOfWeek")
+                    .then(response => (this.daysOfWeek = response.data));
+            },
+            postShiftChangeRequest: function (event) {
+                axios
+                    .post("/api/shiftSwapRequest", {
+                        "employeeRequestName": this.employee_request_name,
+                        "currentShiftStartTime": this.current_shift_start_time,
+                        "currentShiftEndTime": this.current_shift_end_time,
+                        "currentShiftDay": this.current_shift_day,
+                        "employeeSwapName": this.employee_swap_name,
+                        "shiftToSwapStartTime": this.shift_to_swap_start_time,
+                        "shiftToSwapEndTime": this.shift_to_swap_end_time,
+                        "shiftSwapDay": this.shift_swap_day,
+                        "swapApproved": false
+                    })
+            }
+        }
+    })
 </script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

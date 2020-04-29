@@ -2,8 +2,10 @@ package com.schedule.demo.service;
 
 import com.schedule.demo.entity.Shift;
 import com.schedule.demo.entity.ShiftChangeRequest;
+import com.schedule.demo.entity.ShiftSwap;
 import com.schedule.demo.repository.ShiftChangeRepository;
 import com.schedule.demo.repository.ShiftRepository;
+import com.schedule.demo.repository.ShiftSwapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,8 @@ public class ShiftService {
     private ShiftRepository shiftRepository;
     @Autowired
     private ShiftChangeRepository shiftChangeRepository;
+    @Autowired
+    private ShiftSwapRepository shiftSwapRepository;
 
     @Transactional
     public List<Shift> getAllShifts(){
@@ -53,5 +57,9 @@ public class ShiftService {
 
     public ShiftChangeRequest newShiftChangeRequest(ShiftChangeRequest shiftChangeRequest) {
         return shiftChangeRepository.save(shiftChangeRequest);
+    }
+
+    public ShiftSwap newShiftSwapRequest(ShiftSwap shiftSwap) {
+        return shiftSwapRepository.save(shiftSwap);
     }
 }

@@ -24,6 +24,9 @@ public class ShiftSwap {
     @Column(name = "currentShiftEndTime")
     private LocalTime currentShiftEndTime;
 
+    @Column(name = "currentShiftDay")
+    private String currentShiftDay;
+
     @Column(name = "employeeSwapName")
     private String employeeSwapName;
 
@@ -32,6 +35,9 @@ public class ShiftSwap {
 
     @Column(name = "shiftToSwapEndTime")
     private LocalTime shiftToSwapEndTime;
+
+    @Column(name = "shiftSwapDay")
+    private String shiftSwapDay;
 
     @Column(name = "swapApproved")
     private boolean swapApproved;
@@ -100,5 +106,21 @@ public class ShiftSwap {
 
     public void setSwapApproved(boolean swapApproved) {
         this.swapApproved = swapApproved;
+    }
+
+    public String getCurrentShiftDay() {
+        return currentShiftDay;
+    }
+
+    public void setCurrentShiftDay(String shiftDay) {
+        this.currentShiftDay = shiftDay;
+    }
+
+    public String getShiftSwapDay() {
+        return shiftSwapDay;
+    }
+
+    public void setShiftSwapDay(String shiftSwapDay) {
+        this.shiftSwapDay = shiftSwapDay;
     }
 }
