@@ -26,9 +26,9 @@ public class ScheduleConstraintProvider implements org.optaplanner.core.api.scor
         return constraintFactory.from(Shift.class)
                 .groupBy(Shift::getEmployee, sum(Shift::getShiftAmount))
                 .filter((employee, shiftAmount) -> shiftAmount > employee.getWeeklyShiftAllowance())
-                .penalize("Weekly Shift Allowance for each Employee"
-                        ,HardSoftScore.ONE_HARD
-                        ,(employee, shiftAmount) -> shiftAmount - employee.getWeeklyShiftAllowance());
+                .penalize("Weekly Shift Allowance for each Employee",
+                        HardSoftScore.ONE_HARD,
+                        (employee, shiftAmount) -> shiftAmount - employee.getWeeklyShiftAllowance());
     }
 
     private Constraint requiredSkillLevelOfEmployeesForShifts(ConstraintFactory constraintFactory) {
