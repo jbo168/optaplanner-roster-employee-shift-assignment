@@ -30,6 +30,9 @@ public class Shift {
     @Column(name = "requiredSkillLevel")
     private int requiredSkillLevel;
 
+    @Column(name = "shiftAmount")
+    private int shiftAmount;
+
     @Transient
     @PlanningVariable(valueRangeProviderRefs = "employee")
     private Employee employee;
@@ -93,5 +96,13 @@ public class Shift {
 
     public void setDay(String day) {
         this.day = day;
+    }
+
+    public int getShiftAmount() {
+        return shiftAmount;
+    }
+
+    public void setShiftAmount(int shiftAmount) {
+        this.shiftAmount = shiftAmount;
     }
 }
