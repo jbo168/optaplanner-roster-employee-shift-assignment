@@ -19,7 +19,7 @@
                     Department
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" :selected="department.departmentName === selected_department"
+                    <a class="dropdown-item" v-on:click="" :selected="department.departmentName === selected_department"
                        v-bind:value="department.departmentName" v-for="department in departments">
                         {{ department.departmentName }}</a>
                 </div>

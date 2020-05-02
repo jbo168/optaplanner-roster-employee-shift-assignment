@@ -1,5 +1,6 @@
 package com.schedule.demo.entity;
 
+import com.schedule.demo.utils.Departments;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
@@ -35,6 +36,10 @@ public class Shift {
 
     @Column(name = "employeeId")
     private Long employeeId;
+
+    @Column(name = "associatedDepartment")
+    @Enumerated(EnumType.STRING)
+    private Departments associatedDepartment;
 
     @Transient
     @PlanningVariable(valueRangeProviderRefs = "employee")

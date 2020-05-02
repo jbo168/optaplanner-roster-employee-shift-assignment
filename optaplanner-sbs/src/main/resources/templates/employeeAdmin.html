@@ -15,11 +15,45 @@
     <div id="content-wrap">
 
         <div th:replace="fragments/header :: header"></div>
-        <div th:replace="fragments/adminPageTitle :: adminPageTitle ('Employees Administrative Page')"></div>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div th:replace="fragments/adminPageTitle :: adminPageTitle ('Employees Administrative Page')"></div>
+            </div>
+        </div>
 
         <br><br>
 
         <div class="container" id="main">
+            <form v-on:submit.prevent="getEmployeesForDept">
+                <div class="card mb-auto">
+                    <div aria-controls="deptSelectionForm" aria-expanded="false" class="card-header"
+                         data-target="#deptSelectionForm"
+                         data-toggle="collapse" style="cursor: pointer">
+                        <div class="float-left">Show For Department</div>
+                        <div class="float-right">+</div>
+                    </div>
+                    <div class="card card-body collapse" id="deptSelectionForm">
+                        <div class="form-group row">
+                            <label for="associatedDepartment" class="col col-sm-4">Associated Department</label>
+                            <select class="col-sm-8" id="deptDropdown"
+                                    placeholder="Associated Department" v-model="selected_department">
+                                <option disabled value="">Please select a Department</option>
+                                <option v-on:click="getEmployeesForDept(department)" :selected="department.departmentName === selected_department"
+                                        v-bind:value="department.departmentName" v-for="department in departments">
+                                    {{ department.departmentName }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col col-sm-4"></div>
+                            <input class="btn btn-primary col col-sm-8" type="submit" value="Show">
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <br>
+
             <form v-on:submit.prevent="postEmployee">
                 <div class="card mb-auto">
                     <div aria-controls="employeeForm" aria-expanded="false" class="card-header"
@@ -106,7 +140,7 @@
 
 <script>
     var app = new Vue({
-        el: '#main',
+        el: '#page-container',
         data() {
             return {
                 employee_id: null,
@@ -115,7 +149,8 @@
                 employee_type: null,
                 skill_level: null,
                 employees: null,
-                departments: null
+                departments: null,
+                selected_department: null
             }
         },
         mounted() {
@@ -126,6 +161,11 @@
             getEmployees: function () {
                 axios
                     .get("/api/employees")
+                    .then(response => {this.employees = response.data;})
+            },
+            getEmployeesForDept: function (event) {
+                axios
+                    .post("/api/employeesForDept/" + this.selected_department)
                     .then(response => (this.employees = response.data))
             },
             postEmployee: function (event) {
@@ -191,6 +231,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>

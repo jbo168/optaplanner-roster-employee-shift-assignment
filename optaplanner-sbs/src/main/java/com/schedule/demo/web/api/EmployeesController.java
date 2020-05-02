@@ -3,6 +3,7 @@ package com.schedule.demo.web.api;
 import com.schedule.demo.entity.Employee;
 import com.schedule.demo.service.DepartmentService;
 import com.schedule.demo.service.EmployeeService;
+import com.schedule.demo.utils.Departments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,6 +48,12 @@ public class EmployeesController {
 //
 ////        return employeeService.saveEmployee(employee1);
 //    }
+
+    @PostMapping("/employeesForDept/{dept}")
+    public List<Employee> employeeListForDept(@PathVariable String dept) {
+        Departments deptName = Departments.valueOf(dept);
+        return employeeService.getEmployeesForDept(deptName);
+    }
 
     @DeleteMapping("/employees/{employeeID}")
     public void delete(@PathVariable int employeeID) {

@@ -2,6 +2,7 @@ package com.schedule.demo.service;
 
 import com.schedule.demo.entity.Employee;
 import com.schedule.demo.repository.EmployeeRepository;
+import com.schedule.demo.utils.Departments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +31,9 @@ public class EmployeeService {
     @Transactional
     public void deleteEmployee(int id) {
         employeeRepository.deleteById(id);
+    }
+
+    public List<Employee> getEmployeesForDept(Departments dept) {
+        return employeeRepository.findAllEmployeesForDept(dept);
     }
 }
