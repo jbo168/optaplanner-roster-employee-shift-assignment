@@ -8,27 +8,28 @@
     <meta charset="UTF-8">
     <title>Register</title>
 </head>
-<body style="background-color:lightgrey;">
+<body style="background-color:whitesmoke;">
 <div class="container">
-    <div class="row">
-        <h3>Welcome to the Hospitality Scheduler</h3>
-    </div>
     <br>
     <div class="row">
         <div class="col-6">
-            <div class="card">
+            <img src="https://i.ya-webdesign.com/images/schedule-icon-png-6.png" class="register-img" size="50%" id="logo"  alt="logo">
+        </div>
+        <div class="col-6 register-card">
+            <div class="card bg-light">
+                <h3 class="card-title text-center">Welcome to the Hospitality Employee Scheduler</h3>
                 <div class="card-header">Register using the form below</div>
                 <div id="registerFormDiv" class="card-body">
                     <br>
                     <table>
                         <form th:action="@{/register}" th:object="${user}" method="POST">
                             <div class="form-inline">
-                                <label class="col-3 col-form-label">Firstname:</label>
+                                <label class="col-3 col-form-label">First Name:</label>
                                 <input type="text" class="col-6 form-control" th:field="*{userFirstName}"/>
                             </div>
                             <br>
                             <div class="form-inline">
-                                <label class="col-3 col-form-label">Lastname:</label>
+                                <label class="col-3 col-form-label">Last Name:</label>
                                 <input type="text" class="col-6 form-control" th:field="*{userLastName}"/>
                             </div>
                             <br>
@@ -62,6 +63,7 @@
                             <br>
                             <div class="form-inline text-center d-block">
                                 <button type="submit" class="col-2 btn btn-primary mr-4">Register</button>
+                                <button type="button" th:onclick="window.location.href = '/login'" class="col-2 btn btn-dark mr-4">Login</button>
                             </div>
                         </form>
                     </table>

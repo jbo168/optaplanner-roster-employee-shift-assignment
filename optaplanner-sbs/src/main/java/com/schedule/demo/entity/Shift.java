@@ -16,7 +16,7 @@ public class Shift {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "shiftId")
-    private int shiftId;
+    private Long shiftId;
 
     @Column(name = "startTime")
     private LocalTime startTime;
@@ -33,6 +33,9 @@ public class Shift {
     @Column(name = "shiftAmount")
     private int shiftAmount;
 
+    @Column(name = "employeeId")
+    private Long employeeId;
+
     @Transient
     @PlanningVariable(valueRangeProviderRefs = "employee")
     private Employee employee;
@@ -47,11 +50,11 @@ public class Shift {
         this.endTime = endTime;
     }
 
-    public int getShiftId() {
+    public Long getShiftId() {
         return shiftId;
     }
 
-    public void setShiftId(int sid) {
+    public void setShiftId(Long sid) {
         this.shiftId = sid;
     }
 
@@ -71,6 +74,13 @@ public class Shift {
         this.endTime = endTime;
     }
 
+    public Long getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
+    }
 
     // planning variable getter and setter
 
@@ -105,4 +115,6 @@ public class Shift {
     public void setShiftAmount(int shiftAmount) {
         this.shiftAmount = shiftAmount;
     }
+
+
 }

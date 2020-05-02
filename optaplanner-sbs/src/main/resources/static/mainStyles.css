@@ -61,6 +61,22 @@ body{
      background-color: #343a40 !important;
 }
 
+.register-img {
+     margin-top: 65px;
+}
+
+.register-card {
+     margin-top: 35px;
+}
+
+.login-img {
+     margin-top: 40px;
+}
+
+.login-card {
+     margin-top: 90px;
+}
+
 
 
 

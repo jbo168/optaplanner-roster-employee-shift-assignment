@@ -1,6 +1,7 @@
 package com.schedule.demo.web.api;
 
 import com.schedule.demo.domain.Roster;
+import com.schedule.demo.service.RosterService;
 import org.optaplanner.core.api.solver.SolverJob;
 import org.optaplanner.core.api.solver.SolverManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 /**
- * CloudBalancingController
+ * SchedulingController
  */
 @RestController
 @RequestMapping("/api")
@@ -21,6 +22,9 @@ public class RostersController {
 
     @Autowired
     private SolverManager<Roster, UUID> solverManager;
+
+    @Autowired
+    private RosterService rosterService;
 
     @PostMapping("/solve")
     public Roster solve(@RequestBody Roster problem) {
@@ -34,6 +38,8 @@ public class RostersController {
         } catch (InterruptedException | ExecutionException e) {
             throw new IllegalStateException("Solving failed.", e);
         }
+
+//        rosterService.saveNewlyBuiltRoster(solution);
         return solution;
     }
 

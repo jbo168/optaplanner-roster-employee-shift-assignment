@@ -14,7 +14,7 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "employeeId")
-    private int employeeId;
+    private Long employeeId;
 
     @Column(name = "employeeName")
     private String employeeName;
@@ -37,11 +37,11 @@ public class Employee {
 
     }
 
-    public int getEmployeeId() {
+    public Long getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(int eid) {
+    public void setEmployeeId(Long eid) {
         this.employeeId = eid;
     }
 

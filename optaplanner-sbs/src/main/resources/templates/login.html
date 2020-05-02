@@ -9,15 +9,17 @@
 
     <meta charset="UTF-8">
     <title>Login</title>
-</head><body style="background-color:lightgrey;">
+</head>
+<body style="background-color:whitesmoke;">
 <div id="content" class="container">
-    <div class="row">
-        <h3 class="ml-2">Welcome Back !</h3>
-    </div>
     <br>
-    <div class="row">
+    <div class="row ">
         <div class="col-6">
-            <div class="card">
+            <img src="https://i.ya-webdesign.com/images/schedule-icon-png-6.png" class="login-img" size="50%" id="logo"  alt="logo">
+        </div>
+        <div class="col-6 login-card">
+            <div class="card card- bg-light">
+                <h3 class="card-title text-center">Welcome Back!</h3>
                 <div class="card-header">Login using the form below</div>
                 <div id="loginFormDiv" class="card-body">
                     <br>
@@ -41,6 +43,7 @@
                             </div>
                             <div class="form-inline text-center d-block mt-2">
                                 <button id="loginSubmit" name="loginSubmit" type="submit" class="col-2 btn btn-primary mr-4">Login</button>
+                                <button id="registerRedirect" name="registerRedirect" type="button" th:onclick="window.location.href = '/register'" class="col-2 btn btn-dark mr-4">Register</button>
                             </div>
                         </form>
                     </table>

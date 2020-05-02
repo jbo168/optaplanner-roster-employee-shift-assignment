@@ -1,6 +1,13 @@
 package com.schedule.demo.service;
 
+import com.schedule.demo.domain.Roster;
+import com.schedule.demo.entity.Shift;
+import com.schedule.demo.repository.EmployeeRepository;
+import com.schedule.demo.repository.ShiftRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author: John Long
@@ -8,44 +15,24 @@ import org.springframework.stereotype.Service;
  **/
 @Service
 public class RosterService {
+    @Autowired
+    EmployeeRepository employeeRepository;
 
-//    private SkillRepository skillRepository;
-//    private EmployeeRepository employeeRepository;
-//    private ShiftRepository shiftRepository;
-//    private SpotRepository spotRepository;
-//    private EmployeeAvailabilityRepository employeeAvailabilityRepository;
-//
-////    private ScheduleSolverManager scheduleSolverManager;
-////    private ConstraintUtils constraintUtils;
-//
-//    public RosterService(SkillRepository skillRepository,
-//                         EmployeeRepository employeeRepository,
-//                         EmployeeAvailabilityRepository employeeAvailabilityRepository,
-//                         SpotRepository spotRepository,
-//                         ShiftRepository shiftRepository,
-////                         ScheduleSolverManager scheduleSolverManager,
-//                         ConstraintUtils constraintUtils){
-//        this.skillRepository = skillRepository;
-//        this.employeeRepository = employeeRepository;
-//        this.employeeAvailabilityRepository = employeeAvailabilityRepository;
-//        this.spotRepository = spotRepository;
-//        this.shiftRepository = shiftRepository;
-//
-////        this.scheduleSolverManager = scheduleSolverManager;
-//        this.constraintUtils = constraintUtils;
-//    }
-//
-//    public void updateShiftsOfRoster(Roster newRoster) {
-//    }
-//
-//    public Roster buildRoster(Integer deptID) {
-//        List<Skill> skillList = skillRepository.findAllByDeptId(deptID);
-//        List<Spot> spotList = spotRepository.findAllByDeptId(deptID);
-//        List<Employee> employeeList = employeeRepository.findAllByDeptId(deptID);
-//
-////        List<EmployeeAvailability> employeeAvailabilityList  = employeeAvailabilityRepository.findAllByDeptId(deptID)
-////                .stream()
-////                .map(ea -> ea);
-//        return  null;
-//    }
+    @Autowired
+    ShiftRepository shiftRepository;
+
+
+    public void saveNewlyBuiltRoster(Roster solution) {
+        List<Shift> shifts = solution.getShifts();
+
+        for (Shift shift: shifts) {
+            Long employeeId = shift.getEmployee().getEmployeeId();
+            Long shiftId = shift.getShiftId();
+
+            Shift aShift = shiftRepository.getOne(shiftId);
+
+            aShift.setEmployeeId(employeeId);
+            shiftRepository.save(aShift);
+        }
+    }
 }
