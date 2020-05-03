@@ -121,5 +121,11 @@ public class Shift {
         this.shiftAmount = shiftAmount;
     }
 
+    public Departments getAssociatedDepartment() {
+        return associatedDepartment;
+    }
 
+    public void setAssociatedDepartment(Departments associatedDepartment) {
+        this.associatedDepartment = associatedDepartment;
+    }
 }

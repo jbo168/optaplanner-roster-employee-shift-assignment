@@ -9,15 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author: John Long
  * @create: 18-Mar-2020
  **/
-@Controller
-public class EmployeeController {
-    @Autowired
-    EmployeeService employeeService;
+            @Controller
+            public class EmployeeController {
+                @Autowired
+                EmployeeService employeeService;
 
-    @RequestMapping(value = "/employeeAdmin")
-    public String index(){
-        return "employeeAdmin";
-    }
+                @RequestMapping(value = "/employeeAdmin")
+                public String index(){
+                    return "employeeAdmin";
+                }
 
 
-}
+            }
+
+

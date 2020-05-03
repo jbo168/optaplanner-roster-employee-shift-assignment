@@ -6,6 +6,7 @@ import com.schedule.demo.entity.ShiftSwap;
 import com.schedule.demo.repository.ShiftChangeRepository;
 import com.schedule.demo.repository.ShiftRepository;
 import com.schedule.demo.repository.ShiftSwapRepository;
+import com.schedule.demo.utils.Departments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -77,5 +78,9 @@ public class ShiftService {
         ShiftSwap shiftSwap = shiftSwapRepository.getOne(requestId);
         shiftSwap.setSwapApproved(false);
         shiftSwapRepository.save(shiftSwap);
+    }
+
+    public List<Shift> getAllShiftsForDept(Departments deptName) {
+        return shiftRepository.findAllShiftsForDept(deptName);
     }
 }

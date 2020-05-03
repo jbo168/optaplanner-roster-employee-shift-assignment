@@ -18,32 +18,40 @@
             <div class="col-md-4">
                 <div th:replace="fragments/adminPageTitle :: adminPageTitle ('Shifts Administrative Page')"></div>
             </div>
-<!--            <div class="col-md-2 pt-5 dropdown">-->
-<!--                <button class="btn btn-secondary dropdown-toggle" v-model="selected_department" type="button" id="dropdownDeptButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--                    Department-->
-<!--                </button>-->
-<!--                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
-<!--                    <a class="dropdown-item" v-on:click="getEmployeesForDept(selected_department)" :selected="department.departmentName === selected_department"-->
-<!--                       v-bind:value="department.departmentName" v-for="department in departments">-->
-<!--                        {{ department.departmentName }}</a>-->
-<!--                </div>-->
-<!--            </div>-->
-            <div class="col-md-2 pt-5">
-                <label for="associatedDepartment" class="col col-sm-4">Associated Department</label>
-                <select class="col-sm-8" id="deptDropdown"
-                        placeholder="Associated Department" v-model="selected_department">
-                    <option disabled value="">Please select a Department</option>
-                    <option v-on:click="getEmployeesForDept(department)" :selected="department.departmentName === selected_department"
-                            v-bind:value="department.departmentName" v-for="department in departments">
-                        {{ department.departmentName }}
-                    </option>
-                </select>
-            </div>
         </div>
 
         <br><br>
 
         <div class="container" id="main">
+            <form v-on:submit.prevent="getShiftsForDept">
+                <div class="card mb-auto">
+                    <div aria-controls="deptSelectionForm" aria-expanded="false" class="card-header"
+                         data-target="#deptSelectionForm"
+                         data-toggle="collapse" style="cursor: pointer">
+                        <div class="float-left">Show Shifts in Department</div>
+                        <div class="float-right">+</div>
+                    </div>
+                    <div class="card card-body collapse" id="deptSelectionForm">
+                        <div class="form-group row">
+                            <label for="associatedDepartment" class="col col-sm-4">Associated Department</label>
+                            <select class="col-sm-8" id="deptDropdown"
+                                    placeholder="Associated Department" v-model="selected_department">
+                                <option disabled value="">Please select a Department</option>
+                                <option v-on:click="getEmployeesForDept(department)" :selected="department.departmentName === selected_department"
+                                        v-bind:value="department.departmentName" v-for="department in departments">
+                                    {{ department.departmentName }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col col-sm-4"></div>
+                            <input class="btn btn-primary col col-sm-8" type="submit" value="Show">
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <br>
 
             <form v-on:submit.prevent="postShift">
                 <div class="card mb-auto">
@@ -144,6 +152,11 @@
             getShifts: function () {
                 axios
                     .get("/api/shifts")
+                    .then(response => (this.shifts = response.data))
+            },
+            getShiftsForDept: function () {
+                axios
+                    .post("/api/shifts/" + this.selected_department)
                     .then(response => (this.shifts = response.data))
             },
             getDepartments: function () {

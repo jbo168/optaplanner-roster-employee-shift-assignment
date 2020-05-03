@@ -2,6 +2,7 @@ package com.schedule.demo.web.api;
 
 import com.schedule.demo.entity.Shift;
 import com.schedule.demo.service.ShiftService;
+import com.schedule.demo.utils.Departments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +23,15 @@ public class ShiftsController {
         this.shiftService = shiftService;
     }
 
-    @RequestMapping("/shifts")
+    @GetMapping("/shifts")
     public List<Shift> shiftList(){
         return shiftService.getAllShifts();
+    }
+
+    @PostMapping("/shifts/{dept}")
+    public List<Shift> shiftsForDept(@PathVariable String dept){
+        Departments deptName = Departments.valueOf(dept);
+        return shiftService.getAllShiftsForDept(deptName);
     }
 
     @PostMapping("/shifts")
