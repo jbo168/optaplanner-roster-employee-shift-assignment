@@ -9,29 +9,29 @@ import javax.persistence.*;
  * @author: John Long
  * @create: 17-Mar-2020
  **/
-@Entity
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "employeeId")
-    private Long employeeId;
+    @Entity
+    public class Employee {
+        @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        @Column(name = "employeeId")
+        private Long employeeId;
 
-    @Column(name = "employeeName")
-    private String employeeName;
+        @Column(name = "employeeName")
+        private String employeeName;
 
-    @Column(name = "skillLevel")
-    private int skillLevel;
+        @Column(name = "skillLevel")
+        private int skillLevel;
 
-    @Column(name = "employeeType")
-    @Enumerated(EnumType.STRING)
-    private EmployeeType employeeType;
+        @Column(name = "employeeType")
+        @Enumerated(EnumType.STRING)
+        private EmployeeType employeeType;
 
-    @Column(name = "associatedDepartment")
-    @Enumerated(EnumType.STRING)
-    private Departments associatedDepartment;
+        @Column(name = "associatedDepartment")
+        @Enumerated(EnumType.STRING)
+        private Departments associatedDepartment;
 
-    @Column(name = "weeklyShiftAllowance")
-    private int weeklyShiftAllowance;
+        @Column(name = "weeklyShiftAllowance")
+        private int weeklyShiftAllowance;
 
     public Employee(){
 

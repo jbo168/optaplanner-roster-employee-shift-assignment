@@ -13,34 +13,34 @@ import java.util.List;
  * @author: John Long
  * @create: 22-Mar-2020
  **/
-@RestController
-@RequestMapping("/api")
-public class ShiftsController {
-    @Autowired
-    private ShiftService shiftService;
+    @RestController
+    @RequestMapping("/api")
+    public class ShiftsController {
+        @Autowired
+        private ShiftService shiftService;
 
-    public ShiftsController(ShiftService shiftService){
-        this.shiftService = shiftService;
-    }
+        public ShiftsController(ShiftService shiftService){
+            this.shiftService = shiftService;
+        }
 
-    @GetMapping("/shifts")
-    public List<Shift> shiftList(){
-        return shiftService.getAllShifts();
-    }
+        @GetMapping("/shifts")
+        public List<Shift> shiftList(){
+            return shiftService.getAllShifts();
+        }
 
-    @PostMapping("/shifts/{dept}")
-    public List<Shift> shiftsForDept(@PathVariable String dept){
-        Departments deptName = Departments.valueOf(dept);
-        return shiftService.getAllShiftsForDept(deptName);
-    }
+        @PostMapping("/shifts/{dept}")
+        public List<Shift> shiftsForDept(@PathVariable String dept){
+            Departments deptName = Departments.valueOf(dept);
+            return shiftService.getAllShiftsForDept(deptName);
+        }
 
-    @PostMapping("/shifts")
-    public Shift saveShift(@RequestBody @NotNull Shift shift){
-        return shiftService.saveShift(shift);
-    }
+        @PostMapping("/shifts")
+        public Shift saveShift(@RequestBody @NotNull Shift shift){
+            return shiftService.saveShift(shift);
+        }
 
-    @DeleteMapping("/shifts/{id}")
-    public void deleteShift(@PathVariable Long shiftID){
-        shiftService.deleteShift(shiftID);
+        @DeleteMapping("/shifts/{id}")
+        public void deleteShift(@PathVariable Long shiftID){
+            shiftService.deleteShift(shiftID);
+        }
     }
-}

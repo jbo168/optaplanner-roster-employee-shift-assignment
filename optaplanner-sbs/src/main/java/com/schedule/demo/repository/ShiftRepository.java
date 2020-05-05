@@ -10,10 +10,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 
-@Repository
-public interface ShiftRepository extends JpaRepository<Shift,Long> {
+    @Repository
+    public interface ShiftRepository extends JpaRepository<Shift,Long> {
 
-    @Query("select s from Shift s " +
-            "where s.associatedDepartment = :departmentName")
-    List<Shift> findAllShiftsForDept(@Param("departmentName") Departments deptName);
-}
+        @Query("select s from Shift s " +
+                "where s.associatedDepartment = :departmentName")
+        List<Shift> findAllShiftsForDept(@Param("departmentName") Departments deptName);
+    }
+
+

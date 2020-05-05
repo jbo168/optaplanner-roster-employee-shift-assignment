@@ -16,31 +16,32 @@ import java.util.concurrent.ExecutionException;
 /**
  * SchedulingController
  */
-@RestController
-@RequestMapping("/api")
-public class RostersController {
+        @RestController
+        @RequestMapping("/api")
+        public class RostersController {
 
-    @Autowired
-    private SolverManager<Roster, UUID> solverManager;
+            @Autowired
+            private SolverManager<Roster, UUID> solverManager;
 
-    @Autowired
-    private RosterService rosterService;
+            @Autowired
+            private RosterService rosterService;
 
-    @PostMapping("/solve")
-    public Roster solve(@RequestBody Roster problem) {
-        UUID problemId = UUID.randomUUID();
-        // Submit the problem to start solving
-        SolverJob<Roster, UUID> solverJob = solverManager.solve(problemId, problem);
-        Roster solution;
-        try {
-            // Wait until the solving ends
-            solution = solverJob.getFinalBestSolution();
-        } catch (InterruptedException | ExecutionException e) {
-            throw new IllegalStateException("Solving failed.", e);
+            @PostMapping("/solve")
+            public Roster solve(@RequestBody Roster problem) {
+                UUID problemId = UUID.randomUUID();
+                // Submit the problem to start solving
+                SolverJob<Roster, UUID> solverJob = solverManager.solve(problemId, problem);
+                Roster solution;
+                try {
+                    // Wait until the solving ends
+                    solution = solverJob.getFinalBestSolution();
+                } catch (InterruptedException | ExecutionException e) {
+                    throw new IllegalStateException("Solving failed.", e);
+                }
+
+        //        rosterService.saveNewlyBuiltRoster(solution);
+                return solution;
+            }
+
         }
 
-//        rosterService.saveNewlyBuiltRoster(solution);
-        return solution;
-    }
-
-}

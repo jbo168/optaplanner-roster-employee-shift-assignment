@@ -11,39 +11,39 @@ import java.time.LocalTime;
  * @author: John Long
  * @create: 17-Mar-2020
  **/
-@PlanningEntity
-@Entity
-public class Shift {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "shiftId")
-    private Long shiftId;
+    @PlanningEntity
+    @Entity
+    public class Shift {
+        @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        @Column(name = "shiftId")
+        private Long shiftId;
 
-    @Column(name = "startTime")
-    private LocalTime startTime;
+        @Column(name = "startTime")
+        private LocalTime startTime;
 
-    @Column(name = "endTime")
-    private LocalTime endTime;
+        @Column(name = "endTime")
+        private LocalTime endTime;
 
-    @Column(name = "day")
-    private String day;
+        @Column(name = "day")
+        private String day;
 
-    @Column(name = "requiredSkillLevel")
-    private int requiredSkillLevel;
+        @Column(name = "requiredSkillLevel")
+        private int requiredSkillLevel;
 
-    @Column(name = "shiftAmount")
-    private int shiftAmount;
+        @Column(name = "shiftAmount")
+        private int shiftAmount;
 
-    @Column(name = "employeeId")
-    private Long employeeId;
+        @Column(name = "employeeId")
+        private Long employeeId;
 
-    @Column(name = "associatedDepartment")
-    @Enumerated(EnumType.STRING)
-    private Departments associatedDepartment;
+        @Column(name = "associatedDepartment")
+        @Enumerated(EnumType.STRING)
+        private Departments associatedDepartment;
 
-    @Transient
-    @PlanningVariable(valueRangeProviderRefs = "employee")
-    private Employee employee;
+        @Transient
+        @PlanningVariable(valueRangeProviderRefs = "employee")
+        private Employee employee;
 
     public Shift(){
 

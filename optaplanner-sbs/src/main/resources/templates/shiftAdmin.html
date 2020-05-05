@@ -196,8 +196,8 @@
             },
             editShift: function (shift) {
                 this.shift_id = shift.shiftId;
-                this.shift_startTime = shift.shiftStartTime;
-                this.shift_endTime = shift.shiftEndTime;
+                this.shift_startTime = shift.startTime;
+                this.shift_endTime = shift.endTime;
                 this.associated_department = shift.associatedDepartment;
                 document.getElementById('shiftForm')
                     .setAttribute("class", document.getElementById('shiftForm').getAttribute("class") + " show");

@@ -31,23 +31,10 @@ public class EmployeesController {
         return employeeService.getAllEmployees();
     }
 
-//    @PostMapping("/employees")
-//    public Employee saveEmployee(@RequestBody @NotNull Employee employee){
-////        System.out.println(employee.getEmployeeName());
-////        System.out.println(employee.getAssociatedDepartment());
-////
-////        Optional<Department> department = departmentService.getDepartmentName(employee.getAssociatedDepartment());
-////
-////        if (department.isPresent()){
-////            return employeeService.saveEmployee(employee);
-////        }
-////        Employee employee1 = new Employee();
-////        employee1.setEmployeeName(employee.getEmployeeName());
-////        employee1.setAssociatedDepartment(employee.getAssociatedDepartment());
-////        employee1.setEmployeeID(12L);
-//
-////        return employeeService.saveEmployee(employee1);
-//    }
+    @PostMapping("/employees")
+    public Employee saveEmployee(@RequestBody Employee employee){
+        return employeeService.saveEmployee(employee);
+    }
 
     @PostMapping("/employeesForDept/{dept}")
     public List<Employee> employeeListForDept(@PathVariable String dept) {

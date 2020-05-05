@@ -18,7 +18,6 @@ public class ShiftChangesController {
     @Autowired
     private ShiftService shiftService;
 
-
     @GetMapping("/shiftChanges")
     public List<ShiftChangeRequest> shiftChangeRequestList(){
         return shiftService.getAllShiftChangeRequests();

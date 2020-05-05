@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author: John Long
@@ -21,11 +20,6 @@ public class DepartmentService {
     @Transactional
     public List<Department> getAllDepartments(){
         return departmentRepository.findAllDepartments();
-    }
-
-
-    public Optional<Department> getDepartmentName(String associatedDepartment) {
-        return departmentRepository.findByDepartmentName(associatedDepartment);
     }
 
     @Transactional
