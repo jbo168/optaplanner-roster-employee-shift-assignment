@@ -12,31 +12,33 @@ import java.util.List;
  * @create: 11-Apr-2020
  **/
 
-@RestController
-@RequestMapping("/api")
-public class ShiftChangesController {
-    @Autowired
-    private ShiftService shiftService;
+    @RestController
+    @RequestMapping("/api")
+    public class ShiftChangesController {
+        @Autowired
+        private ShiftService shiftService;
 
-    @GetMapping("/shiftChanges")
-    public List<ShiftChangeRequest> shiftChangeRequestList(){
-        return shiftService.getAllShiftChangeRequests();
-    }
-
-    @PostMapping("/shiftChangeRequest")
-    public ShiftChangeRequest createNewShiftChangeRequest(@RequestBody ShiftChangeRequest shiftChangeRequest){
-        return shiftService.newShiftChangeRequest(shiftChangeRequest);
-    }
-
-    @PostMapping("/shiftChangeRequest/{requestId}/{approval}")
-    public String approveOrDeclineShiftChangeRequest(@PathVariable Long requestId, @PathVariable boolean approval) {
-        if (approval) {
-            shiftService.approveShiftChangeRequest(requestId);
-            return "approved";
-        }else{
-            shiftService.declineShiftChangeRequest(requestId);
-            return "declined";
+        @GetMapping("/shiftChanges")
+        public List<ShiftChangeRequest> shiftChangeRequestList(){
+            return shiftService.getAllShiftChangeRequests();
         }
 
+        @PostMapping("/shiftChangeRequest")
+        public ShiftChangeRequest createNewShiftChangeRequest(@RequestBody ShiftChangeRequest shiftChangeRequest){
+            return shiftService.newShiftChangeRequest(shiftChangeRequest);
+        }
+
+        @PostMapping("/shiftChangeRequest/{requestId}/{approval}")
+        public String approveOrDeclineShiftChangeRequest(@PathVariable Long requestId, @PathVariable boolean approval) {
+            if (approval) {
+                shiftService.approveShiftChangeRequest(requestId);
+                return "approved";
+            }else{
+                shiftService.declineShiftChangeRequest(requestId);
+                return "declined";
+            }
+
+        }
     }
-}
+
+    

@@ -17,10 +17,10 @@
         <br><br>
 
         <div class="container" id="main">
-            <div class="jumbotron">
+            <div class="jumbotron" v-if="this.manager">
                 <div class="row">
                     <div class="col-md-4 jumbo-image">
-                        <img src="https://i.ya-webdesign.com/images/schedule-icon-png-6.png" size="50%" id="logo"  alt="logo">
+                        <img src="https://i.ya-webdesign.com/images/schedule-icon-png-6.png" size="50%" id="logo1"  alt="logo">
                     </div>
                     <div class="col-md-6">
                         <h1 class="display-4">Welcome to the Hospitality Scheduler</h1>
@@ -29,6 +29,22 @@
                         <p>Click the button below to start creating a schedule and the navigation bar on top for administration</p>
                         <p class="lead">
                             <a class="btn btn-primary btn-lg" href="/roster" role="button">Start Scheduling</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="jumbotron" v-if="this.employee">
+                <div class="row">
+                    <div class="col-md-4 jumbo-image">
+                        <img src="https://i.ya-webdesign.com/images/schedule-icon-png-6.png" size="50%" id="logo2"  alt="logo">
+                    </div>
+                    <div class="col-md-6">
+                        <h1 class="display-4">Welcome to the Hospitality Scheduler</h1>
+                        <p class="lead">Use this application to view the schedule for the week or to make shift requests</p>
+                        <hr class="my-4">
+                        <p>Click the button below to view the current roster</p>
+                        <p class="lead">
+                            <a class="btn btn-primary btn-lg" href="/roster" role="button">View Schedule</a>
                         </p>
                     </div>
                 </div>
@@ -43,6 +59,22 @@
 <script src="webjars/vue/vue.min.js"></script>
 <script src="webjars/axios/dist/axios.min.js"></script>
 
+<script>
+    var app = new Vue({
+        el: '#page-container',
+        data() {
+            return {
+                employee: false,
+                manager: true
+            }
+        },
+        mounted() {
+        },
+        methods: {
+
+        },
+    })
+</script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
