@@ -15,19 +15,20 @@ import java.util.List;
  * @author: John Long
  * @create: 19-Mar-2020
  **/
-    @PlanningSolution
-    public class Roster {
-        @ProblemFactCollectionProperty
-        @ValueRangeProvider(id = "employee")
-        private List<Employee> employees;
+@PlanningSolution
+public class Roster {
+    @ProblemFactCollectionProperty
+    @ValueRangeProvider(id = "employee")
+    private List<Employee> employees;
 
-        @PlanningEntityCollectionProperty
-        private List<Shift> shifts;
+    @PlanningEntityCollectionProperty
+    private List<Shift> shifts;
 
-        @PlanningScore
-        private HardSoftScore score;
+    @PlanningScore
+    private HardSoftScore score;
 
-    public Roster(){}
+    public Roster() {
+    }
 
     public Roster(List<Employee> employees, List<Shift> shifts) {
         this.employees = employees;

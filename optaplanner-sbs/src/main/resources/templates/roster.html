@@ -61,7 +61,7 @@
             <table contenteditable class="table" id="rosterTable">
                 <thead class="thead-dark">
                 <tr>
-                    <th>Employee</th>
+                    <th>EMPLOYEE</th>
                     <th v-for="day in daysOfWeek">{{ day }}</th>
                 </tr>
                 </thead>
@@ -172,6 +172,16 @@
             },
             getRosterForDept: function () {
 
+            },
+            getEmployeesForDept: function (dept){
+                axios
+                    .post("/api/employees/" + dept)
+                    .then(response => (this.employees = response.data))
+            },
+            getShiftsForDept: function (dept) {
+                axios
+                    .post("/api/shifts/" + dept)
+                    .then(response => (this.shifts = response.data))
             },
             getDaysOfWeek: function () {
                 axios
