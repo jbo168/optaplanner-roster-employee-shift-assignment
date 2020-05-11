@@ -48,8 +48,8 @@ public class CustomLoginHandler implements AuthenticationSuccessHandler {
 
         Map<String, String> accTypeTargetUrlMap = new HashMap<>();
 
-        accTypeTargetUrlMap.put("MANAGER","/");
-        accTypeTargetUrlMap.put("EMPLOYEE","/");
+        accTypeTargetUrlMap.put("MANAGER","/index");
+        accTypeTargetUrlMap.put("EMPLOYEE","/index");
 
         if(accTypeTargetUrlMap.containsKey(currentUser.getAccountType().toString())){
             return accTypeTargetUrlMap.get(currentUser.getAccountType().toString());

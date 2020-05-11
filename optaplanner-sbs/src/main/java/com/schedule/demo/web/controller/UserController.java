@@ -32,7 +32,7 @@ public class UserController {
         boolean isLoginValid = true;
 
         if(isLoginValid){
-            return "redirect:/";
+            return "/index";
         }else{
             model.addAttribute("isLoginValid", "msg");
             return "login";

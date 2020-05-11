@@ -71,7 +71,24 @@
                             <label for="shiftEndTime" class="col-sm-4 col-form-label">Shift End Time</label>
                             <input id="shiftEndTime" class="form-control col-sm-8" placeholder="Shift End Time"
                                    type="text"
-                                   v-model="shift_startTime"/>
+                                   v-model="shift_endTime"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="requiredSkillLevel" class="col-sm-4 col-form-label">Required Skill Level</label>
+                            <input id="requiredSkillLevel" class="form-control col-sm-8" placeholder="Required Skill Level"
+                                   type="text"
+                                   v-model="required_skill_level"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="daysOfWeek" class="col col-sm-4">Day of Week</label>
+                            <select class="form-control col-sm-8" id="daysOfWeek"
+                                    placeholder="Day of Week" v-model="day_of_week">
+                                <option disabled value="">Please select a Day</option>
+                                <option :selected="day === day_of_week"
+                                        v-bind:value="day" v-for="day in daysOfWeek">
+                                    {{ day }}
+                                </option>
+                            </select>
                         </div>
                         <div class="form-group row">
                             <label for="associatedDepartment" class="col col-sm-4">Associated Department</label>
@@ -100,6 +117,9 @@
                     <th>Shift Id</th>
                     <th>Start Time</th>
                     <th>End Time</th>
+                    <th>Required Skill Level</th>
+                    <th>Shift Amount</th>
+                    <th>Day</th>
                     <th>Associated Department</th>
                     <th>Actions</th>
                 </tr>
@@ -109,6 +129,9 @@
                     <td>{{ shift.shiftId }}</td>
                     <td>{{ shift.startTime }}</td>
                     <td>{{ shift.endTime }}</td>
+                    <td class="text-center">{{ shift.requiredSkillLevel }}</td>
+                    <td class="text-center">{{ shiftAmount }}</td>
+                    <td>{{ shift.day }}</td>
                     <td>{{ shift.associatedDepartment }}</td>
                     <td>
                         <button class="btn btn-primary" v-on:click="editShift(shift)">Edit</button>
@@ -139,20 +162,30 @@
                 shift_startTime: null,
                 shift_endTime: null,
                 associated_department: null,
+                day_of_week: null,
+                required_skill_level: null,
                 selected_department: null,
                 shifts: null,
-                departments: null
+                shiftAmount: 1,
+                departments: null,
+                daysOfWeek: null
             }
         },
         mounted() {
             this.getShifts();
             this.getDepartments();
+            this.getDaysOfWeek();
         },
         methods: {
             getShifts: function () {
                 axios
                     .get("/api/shifts")
                     .then(response => (this.shifts = response.data))
+            },
+            getDaysOfWeek: function () {
+                axios
+                    .get("/api/daysOfWeek")
+                    .then(response => (this.daysOfWeek = response.data))
             },
             getShiftsForDept: function () {
                 axios
@@ -171,12 +204,16 @@
                         .post("/api/shifts", {
                             "shiftStartTime": this.shift_startTime,
                             "shiftEndTime": this.shift_endTime,
+                            "requiredSkillLevel": this.required_skill_level,
+                            "day": this.day_of_week,
                             "associatedDepartment": this.associated_department
                         })
                         .then(savedShift => {
                             this.shifts.push(savedShift.data);
                             this.shift_startTime = '';
                             this.shift_endTime = '';
+                            this.required_skill_level = '';
+                            this.day_of_week = null;
                             this.associated_department = null;
                         })
                 } else { // Update
@@ -184,12 +221,16 @@
                         .post("/api/shifts", {
                             "shiftStartTime": this.shift_startTime,
                             "shiftEndTime": this.shift_endTime,
+                            "requiredSkillLevel": this.required_skill_level,
+                            "day": this.day_of_week,
                             "associatedDepartment": this.associated_department
                         })
                         .then(savedShift => {
                             this.getShifts();
                             this.shift_startTime = '';
                             this.shift_endTime = '';
+                            this.required_skill_level = '';
+                            this.day_of_week = '';
                             this.associated_department = '';
                         })
                 }
@@ -198,6 +239,8 @@
                 this.shift_id = shift.shiftId;
                 this.shift_startTime = shift.startTime;
                 this.shift_endTime = shift.endTime;
+                this.required_skill_level = shift.requiredSkillLevel;
+                this.day_of_week = shift.day;
                 this.associated_department = shift.associatedDepartment;
                 document.getElementById('shiftForm')
                     .setAttribute("class", document.getElementById('shiftForm').getAttribute("class") + " show");
