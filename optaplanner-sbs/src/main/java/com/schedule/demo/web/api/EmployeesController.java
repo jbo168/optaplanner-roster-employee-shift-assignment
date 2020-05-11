@@ -36,8 +36,8 @@ public class EmployeesController {
         return employeeService.saveEmployee(employee);
     }
 
-    @PostMapping("/employeesForDept/{dept}")
-    public List<Employee> employeeListForDept(@PathVariable String dept) {
+    @GetMapping("/employeesForDept")
+    public List<Employee> employeeListForDept(@RequestParam String dept) {
         Departments deptName = Departments.valueOf(dept);
         return employeeService.getEmployeesForDept(deptName);
     }

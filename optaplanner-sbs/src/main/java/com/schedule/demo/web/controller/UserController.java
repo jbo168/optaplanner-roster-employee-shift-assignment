@@ -28,8 +28,7 @@ public class UserController {
         String email = user.getUserEmail();
         String password = user.getUserPassword();
 
-//        boolean isLoginValid = userService.validLogin(email, password);
-        boolean isLoginValid = true;
+        boolean isLoginValid = userService.validLogin(email, password);
 
         if(isLoginValid){
             return "/index";

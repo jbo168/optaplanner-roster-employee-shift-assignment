@@ -199,11 +199,11 @@
             },
             postShift: function (event) {
                 // Create
-                if (this.shift_id == '' || this.shift_id == null) {
+                if (this.shift_id === '' || this.shift_id == null) {
                     axios
                         .post("/api/shifts", {
-                            "shiftStartTime": this.shift_startTime,
-                            "shiftEndTime": this.shift_endTime,
+                            "startTime": this.shift_startTime,
+                            "endTime": this.shift_endTime,
                             "requiredSkillLevel": this.required_skill_level,
                             "day": this.day_of_week,
                             "associatedDepartment": this.associated_department
@@ -219,8 +219,8 @@
                 } else { // Update
                     axios
                         .post("/api/shifts", {
-                            "shiftStartTime": this.shift_startTime,
-                            "shiftEndTime": this.shift_endTime,
+                            "startTime": this.shift_startTime,
+                            "endTime": this.shift_endTime,
                             "requiredSkillLevel": this.required_skill_level,
                             "day": this.day_of_week,
                             "associatedDepartment": this.associated_department

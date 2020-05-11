@@ -39,7 +39,7 @@
                     <div class="card card-body collapse" id="deptSelectionForm">
                         <div class="form-group row">
                             <label for="associatedDepartment" class="col col-sm-4">Associated Department</label>
-                            <select class="col-sm-8" id="deptDropdown"
+                            <select class="col-sm-8" id="associatedDepartment"
                                     placeholder="Associated Department" v-model="selected_department">
                                 <option disabled value="">Please select a Department</option>
                                 <option v-on:click="" :selected="department.departmentName === selected_department"
@@ -66,6 +66,36 @@
                 </tr>
                 </thead>
                 <tbody id="schedule-body">
+                <tr>
+                    <td>employeeA</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>09:00:00,17:00:00</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>employeeB</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>17:00:00,00:00:00</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>employeeC</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>11:00:00,20:00:00</td>
+                    <td></td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -91,7 +121,6 @@
                 departments: null,
                 selected_department: null,
                 associated_department: null,
-                shiftsDB: null,
                 postScheduleBody: '',
                 solvedScheduleBody: '',
                 counter: 0,
@@ -170,8 +199,9 @@
                     tbody.appendChild(row);
                 }
             },
-            getRosterForDept: function () {
-
+            getRosterForDept: function (event) {
+                this.getEmployeesForDept(this.selected_department);
+                this.getShiftsForDept(this.selected_department);
             },
             getEmployeesForDept: function (dept){
                 axios
@@ -180,7 +210,7 @@
             },
             getShiftsForDept: function (dept) {
                 axios
-                    .post("/api/shifts/" + dept)
+                    .get("/api/shifts/" + dept)
                     .then(response => (this.shifts = response.data))
             },
             getDaysOfWeek: function () {
