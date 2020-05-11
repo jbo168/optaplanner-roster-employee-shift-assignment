@@ -30,6 +30,9 @@ import javax.persistence.*;
         @Enumerated(EnumType.STRING)
         private Departments associatedDepartment;
 
+        @Column(name = "sectionId")
+        private Long sectionId;
+
         @Column(name = "weeklyShiftAllowance")
         private int weeklyShiftAllowance;
 
@@ -67,6 +70,14 @@ import javax.persistence.*;
 
     public void setAssociatedDepartment(Departments associatedDepartment) {
         this.associatedDepartment = associatedDepartment;
+    }
+
+    public Long getSectionId() {
+        return sectionId;
+    }
+
+    public void setSectionId(Long sectionId) {
+        this.sectionId = sectionId;
     }
 
     // constraint getters and setters
