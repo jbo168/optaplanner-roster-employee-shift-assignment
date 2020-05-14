@@ -149,17 +149,17 @@
                 /*  these for loops traverse the schedule table
                     adding shifts where an employee and day match the solved response
                  */
-                for (let e = 0; e < this.employees.length; e++) {
+                for (let e = 0; e < this.rosterForDept.employees.length; e++) {
                     console.log(this.employees[e]);
                     let row = document.createElement("tr");
                     let eCell = document.createElement("td");
-                    let eCellText = document.createTextNode(this.employees[e].employeeName);
+                    let eCellText = document.createTextNode(this.rosterForDept.employees[e].employeeName);
                     eCell.appendChild(eCellText);
                     row.appendChild(eCell);
                     for (let d = 0; d < this.daysOfWeek.length; d++) {
                         console.log(this.daysOfWeek[d]);
                         for (let s = 0; s < schData.shifts.length; s++) {
-                            if (schData.shifts[s].day === this.daysOfWeek[d] && schData.shifts[s]["employee"].employeeName === this.employees[e].employeeName) {
+                            if (schData.shifts[s].day === this.daysOfWeek[d] && schData.shifts[s]["employee"].employeeName === this.rosterForDept.employees[e].employeeName) {
                                 let data = schData.shifts[s].startTime + "-" + schData.shifts[s].endTime;
                                 let cell = document.createElement("td");
                                 let cellText = document.createTextNode(data);
