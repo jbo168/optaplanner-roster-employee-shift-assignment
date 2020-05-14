@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2020 at 11:23 PM
+-- Generation Time: May 15, 2020 at 01:22 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -65,7 +65,7 @@ CREATE TABLE `department` (
 INSERT INTO `department` (`departmentID`, `departmentName`) VALUES
 (6, 'ACCOMMODATION'),
 (5, 'BAR'),
-(8, 'FUNCTION'),
+(11, 'FUNCTION'),
 (3, 'RECEPTION'),
 (7, 'RESTAURANT');
 
@@ -81,6 +81,7 @@ CREATE TABLE `employee` (
   `skillLevel` varchar(10) DEFAULT NULL,
   `employeeType` varchar(255) DEFAULT NULL,
   `associatedDepartment` varchar(255) DEFAULT NULL,
+  `sectionId` int(11) DEFAULT NULL,
   `weeklyShiftAllowance` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -88,17 +89,20 @@ CREATE TABLE `employee` (
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`employeeId`, `employeeName`, `skillLevel`, `employeeType`, `associatedDepartment`, `weeklyShiftAllowance`) VALUES
-(3, 'John', '5', 'FULL_TIME', 'BAR', 5),
-(4, 'Elaine', '4', 'PART_TIME', 'BAR', 3),
-(5, 'Kieran', '2', 'FULL_TIME', 'BAR', 5),
-(6, 'Amy', '5', 'FULL_TIME', 'BAR', 5),
-(7, 'Steve', '3', 'FULL_TIME', 'BAR', 5),
-(9, 'Maeve', '4', 'FULL_TIME', 'BAR', 5),
-(10, 'Tommy', '1', 'FULL_TIME', 'BAR', 5),
-(11, 'James', '5', 'PART_TIME', 'BAR', 3),
-(12, 'David', '4', 'FULL_TIME', 'ACCOMMODATION', 5),
-(13, 'Niamh', '1', 'PART_TIME', 'RECEPTION', 3);
+INSERT INTO `employee` (`employeeId`, `employeeName`, `skillLevel`, `employeeType`, `associatedDepartment`, `sectionId`, `weeklyShiftAllowance`) VALUES
+(3, 'John', '5', 'FULL_TIME', 'BAR', NULL, 5),
+(4, 'Elaine', '4', 'PART_TIME', 'BAR', NULL, 3),
+(5, 'Kieran', '2', 'FULL_TIME', 'BAR', NULL, 5),
+(6, 'Amy', '5', 'FULL_TIME', 'BAR', NULL, 5),
+(7, 'Steve', '3', 'FULL_TIME', 'BAR', NULL, 5),
+(9, 'Maeve', '4', 'FULL_TIME', 'BAR', NULL, 5),
+(10, 'Tommy', '1', 'FULL_TIME', 'BAR', NULL, 5),
+(11, 'James', '5', 'PART_TIME', 'BAR', NULL, 3),
+(12, 'David', '4', 'FULL_TIME', 'ACCOMMODATION', NULL, 5),
+(13, 'Niamh', '1', 'PART_TIME', 'RECEPTION', NULL, 3),
+(14, 'employeeA', '4', 'FULL_TIME', 'FUNCTION', NULL, 0),
+(15, 'employeeB', '5', 'FULL_TIME', 'FUNCTION', NULL, 0),
+(16, 'employeeC', '3', 'FULL_TIME', 'FUNCTION', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -157,6 +161,38 @@ CREATE TABLE `manager` (
 INSERT INTO `manager` (`managerId`, `managerName`, `associatedDepartment`, `accountType`) VALUES
 (1, 'Maeve C', NULL, 'MANAGER'),
 (2, 'Steve K', NULL, 'MANAGER');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `section`
+--
+
+CREATE TABLE `section` (
+  `sectionId` int(11) NOT NULL,
+  `sectionName` varchar(255) DEFAULT NULL,
+  `deptId` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `section`
+--
+
+INSERT INTO `section` (`sectionId`, `sectionName`, `deptId`) VALUES
+(1, 'Bar Waiter', 5),
+(2, 'Bartender', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `section_required_skill_set`
+--
+
+CREATE TABLE `section_required_skill_set` (
+  `sectionRequiredSkillSetId` int(11) NOT NULL,
+  `skillId` int(11) DEFAULT NULL,
+  `sectiontId` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -221,7 +257,10 @@ INSERT INTO `shift` (`shiftId`, `startTime`, `endTime`, `requiredSkillLevel`, `s
 (42, '07:00:00', '15:00:00', 5, 1, 'SUNDAY', NULL, 'RECEPTION'),
 (43, '18:30:00', '23:30:00', 4, 1, 'SUNDAY', NULL, 'RESTAURANT'),
 (44, '07:00:00', '16:00:00', 3, 1, 'MONDAY', NULL, 'ACCOMMODATION'),
-(45, '07:00:00', '16:00:00', 3, 1, 'SUNDAY', NULL, 'ACCOMMODATION');
+(45, '07:00:00', '16:00:00', 3, 1, 'SUNDAY', NULL, 'ACCOMMODATION'),
+(49, '09:00:00', '17:00:00', 4, 1, 'SATURDAY', NULL, 'FUNCTION'),
+(50, '17:00:00', '00:00:00', 5, 1, 'SATURDAY', NULL, 'FUNCTION'),
+(51, '11:00:00', '20:00:00', 3, 1, 'SATURDAY', NULL, 'FUNCTION');
 
 -- --------------------------------------------------------
 
@@ -325,38 +364,6 @@ INSERT INTO `skill` (`skillId`, `skillName`, `associatedDepartment`, `deptId`) V
 -- --------------------------------------------------------
 
 --
--- Table structure for table `spot`
---
-
-CREATE TABLE `spot` (
-  `spotId` int(11) NOT NULL,
-  `spotName` varchar(255) DEFAULT NULL,
-  `deptId` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `spot`
---
-
-INSERT INTO `spot` (`spotId`, `spotName`, `deptId`) VALUES
-(1, 'Bar Waiter', 5),
-(2, 'Bartender', 5);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `spot_required_skill_set`
---
-
-CREATE TABLE `spot_required_skill_set` (
-  `spotRequiredSkillSetId` int(11) NOT NULL,
-  `skillId` int(11) DEFAULT NULL,
-  `spotId` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `user`
 --
 
@@ -376,10 +383,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`userId`, `userFirstName`, `userLastName`, `userEmail`, `userPassword`, `username`, `userPhone`, `accountType`) VALUES
-(1, 'testF', 'testL', 'test@hotmail.com', '1234', 'tester', '0879791410', 'EMPLOYEE'),
 (2, 'Jim', 'Jones', 'jim@gmail.com', '123', 'jim', '0830569315', 'EMPLOYEE'),
-(3, 'test', 'test', 'test@gmail.com', '12345', 'tester', '0985672345', 'EMPLOYEE'),
-(4, 'admin', 'admin', 'admin@scheduler.com', 'admin123', 'admin', '0613553082', 'MANAGER');
+(4, 'admin', 'admin', 'admin@scheduler.com', 'admin123', 'admin', '0613553082', 'MANAGER'),
+(5, 'James', 'Kelly', 'jkelly@hotmail.com', 'james', 'jkelly', '0858421031', NULL);
 
 --
 -- Indexes for dumped tables
@@ -404,7 +410,8 @@ ALTER TABLE `department`
 --
 ALTER TABLE `employee`
   ADD PRIMARY KEY (`employeeId`),
-  ADD KEY `employee_dept_fk` (`associatedDepartment`);
+  ADD KEY `employee_dept_fk` (`associatedDepartment`),
+  ADD KEY `employee_section_fk` (`sectionId`);
 
 --
 -- Indexes for table `employee_availability`
@@ -424,6 +431,20 @@ ALTER TABLE `holiday_request`
 --
 ALTER TABLE `manager`
   ADD PRIMARY KEY (`managerId`);
+
+--
+-- Indexes for table `section`
+--
+ALTER TABLE `section`
+  ADD PRIMARY KEY (`sectionId`);
+
+--
+-- Indexes for table `section_required_skill_set`
+--
+ALTER TABLE `section_required_skill_set`
+  ADD PRIMARY KEY (`sectionRequiredSkillSetId`),
+  ADD KEY `spotrequiredskillset_skill_fk` (`skillId`),
+  ADD KEY `spotrequiredskillset_spot_fk` (`sectiontId`);
 
 --
 -- Indexes for table `shift`
@@ -463,20 +484,6 @@ ALTER TABLE `skill`
   ADD KEY `skill_dept_fk` (`deptId`);
 
 --
--- Indexes for table `spot`
---
-ALTER TABLE `spot`
-  ADD PRIMARY KEY (`spotId`);
-
---
--- Indexes for table `spot_required_skill_set`
---
-ALTER TABLE `spot_required_skill_set`
-  ADD PRIMARY KEY (`spotRequiredSkillSetId`),
-  ADD KEY `spotrequiredskillset_skill_fk` (`skillId`),
-  ADD KEY `spotrequiredskillset_spot_fk` (`spotId`);
-
---
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -496,13 +503,13 @@ ALTER TABLE `contract`
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `departmentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `departmentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `employeeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `employeeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `holiday_request`
@@ -517,10 +524,22 @@ ALTER TABLE `manager`
   MODIFY `managerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `section`
+--
+ALTER TABLE `section`
+  MODIFY `sectionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `section_required_skill_set`
+--
+ALTER TABLE `section_required_skill_set`
+  MODIFY `sectionRequiredSkillSetId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `shiftId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `shiftId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `shift_change_request`
@@ -547,22 +566,10 @@ ALTER TABLE `skill`
   MODIFY `skillId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `spot`
---
-ALTER TABLE `spot`
-  MODIFY `spotId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `spot_required_skill_set`
---
-ALTER TABLE `spot_required_skill_set`
-  MODIFY `spotRequiredSkillSetId` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
@@ -578,13 +585,21 @@ ALTER TABLE `contract`
 -- Constraints for table `employee`
 --
 ALTER TABLE `employee`
-  ADD CONSTRAINT `employee_dept_fk` FOREIGN KEY (`associatedDepartment`) REFERENCES `department` (`departmentName`);
+  ADD CONSTRAINT `employee_dept_fk` FOREIGN KEY (`associatedDepartment`) REFERENCES `department` (`departmentName`),
+  ADD CONSTRAINT `employee_section_fk` FOREIGN KEY (`sectionId`) REFERENCES `section` (`sectionId`);
 
 --
 -- Constraints for table `employee_availability`
 --
 ALTER TABLE `employee_availability`
   ADD CONSTRAINT `employeeavailability_employee__fk` FOREIGN KEY (`employeeId`) REFERENCES `employee` (`employeeId`);
+
+--
+-- Constraints for table `section_required_skill_set`
+--
+ALTER TABLE `section_required_skill_set`
+  ADD CONSTRAINT `section_required_skill_set_skill_fk` FOREIGN KEY (`skillId`) REFERENCES `skill` (`skillID`),
+  ADD CONSTRAINT `section_required_skill_set_spot_fk` FOREIGN KEY (`sectiontId`) REFERENCES `section` (`sectionId`);
 
 --
 -- Constraints for table `shift`
@@ -599,20 +614,13 @@ ALTER TABLE `shift`
 ALTER TABLE `shift_template`
   ADD CONSTRAINT `shift_template__dept_fk` FOREIGN KEY (`deptId`) REFERENCES `department` (`departmentID`),
   ADD CONSTRAINT `shift_template_employee__fk` FOREIGN KEY (`employeeId`) REFERENCES `employee` (`employeeId`),
-  ADD CONSTRAINT `shift_template_spot_fk` FOREIGN KEY (`spotId`) REFERENCES `spot` (`spotId`);
+  ADD CONSTRAINT `shift_template_spot_fk` FOREIGN KEY (`spotId`) REFERENCES `section` (`sectionId`);
 
 --
 -- Constraints for table `skill`
 --
 ALTER TABLE `skill`
   ADD CONSTRAINT `skill_dept_fk` FOREIGN KEY (`deptID`) REFERENCES `department` (`departmentID`);
-
---
--- Constraints for table `spot_required_skill_set`
---
-ALTER TABLE `spot_required_skill_set`
-  ADD CONSTRAINT `spotrequiredskillset_skill_fk` FOREIGN KEY (`skillId`) REFERENCES `skill` (`skillID`),
-  ADD CONSTRAINT `spotrequiredskillset_spot_fk` FOREIGN KEY (`spotId`) REFERENCES `spot` (`spotId`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
