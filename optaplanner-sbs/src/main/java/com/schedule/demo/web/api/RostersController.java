@@ -49,13 +49,13 @@ public class RostersController {
         return solution;
     }
 
-    @PostMapping("/roster/{dept}")
-    public Roster getSavedRosterForDept(@PathVariable String dept) {
+    @GetMapping("/roster/{dept}")
+    public Roster getRosterForDept(@PathVariable String dept) {
         Departments deptName = Departments.valueOf(dept);
         List<Employee> employeesInDept = employeeService.getEmployeesForDept(deptName);
         List<Shift> shiftsInDept  = shiftService.getAllShiftsForDept(deptName);
-        Roster savedRoster = new Roster(employeesInDept, shiftsInDept);
-        return savedRoster;
+        Roster roster = new Roster(employeesInDept, shiftsInDept);
+        return roster;
     }
 
 }

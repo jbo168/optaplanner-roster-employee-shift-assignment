@@ -66,7 +66,7 @@
                 </tr>
                 </thead>
                 <tbody id="schedule-body">
-                
+
                 </tbody>
             </table>
         </div>
@@ -95,7 +95,8 @@
                 postScheduleBody: '',
                 solvedScheduleBody: '',
                 counter: 0,
-                daysOfWeek: null
+                daysOfWeek: null,
+                rosterForDept: ''
             }
         },
         mounted() {
@@ -133,7 +134,7 @@
                 return solverObj;
             },
             postToSolver: function() {
-                axios.post('/api/solve', this.solvingBody())
+                axios.post('/api/solve', this.rosterForDept)
                     .then((response) => {
                         this.solvedScheduleBody = response.data;
                     }, (error) => {
@@ -171,8 +172,9 @@
                 }
             },
             getRosterForDept: function (event) {
-                this.getEmployeesForDept(this.selected_department);
-                this.getShiftsForDept(this.selected_department);
+                axios
+                    .get("/api/roster/" + this.selected_department)
+                    .then(response => (this.rosterForDept = response.data))
             },
             getEmployeesForDept: function (dept){
                 axios
